@@ -1,0 +1,1 @@
+{"name":"Luna App Pro","short_name":"Luna","start_url":"./index.html","scope":"./","display":"standalone","orientation":"portrait","background_color":"#fbf4f6","theme_color":"#6b1f4f","icons":[{"src":"icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},{"src":"icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}]}
