@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#6b1f4f">
+<link rel="manifest" href="manifest.json">
+<title>Luna App Pro</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{--ink:#2b1230;--mul:#6b1f4f;--rose:#e2506f;--rose-d:#c13a5a;--petal:#fbe1e8;--peach:#fde9dc;--bg:#fbf4f6;--line:#efd9e0;--mut:#86767f;--ok:#2f7d78;--serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif}
+html,body{height:100%;background:var(--bg);overscroll-behavior:none}
+body{font-family:system-ui,-apple-system,Roboto,sans-serif;color:var(--ink)}
+.app{height:100%;max-width:520px;margin:0 auto;display:flex;flex-direction:column;background:var(--bg);position:relative;overflow:hidden;padding-top:env(safe-area-inset-top,0px)}
+.inner{flex:1;position:relative;overflow:hidden}
+.page{position:absolute;inset:0;overflow-y:auto;padding:0 18px 28px;opacity:0;transform:translateY(10px);transition:opacity .22s,transform .22s;pointer-events:none}
+.page.active{opacity:1;transform:none;pointer-events:all}
+svg{display:block;flex-shrink:0}
+h1,h2,.serif{font-family:var(--serif);font-weight:600;letter-spacing:-.2px}
+.hero{background:var(--mul);color:#fff;margin:0 -18px;padding:28px 22px 52px;border-radius:0 0 34px 34px;position:relative;overflow:hidden}
+.hero .moon{position:absolute;right:-26px;top:-18px;opacity:.95}
+.hero small{font-size:13px;color:var(--petal);opacity:.85}
+.hero h1{font-size:30px;margin-top:6px;line-height:1.15;max-width:70%}
+.hero p{font-size:13px;color:var(--petal);opacity:.75;margin-top:8px}
+.next{background:#fff;border-radius:20px;padding:16px;margin:-30px 0 18px;display:flex;align-items:center;gap:14px;box-shadow:0 10px 28px rgba(107,31,79,.14);position:relative}
+.next .ic{width:44px;height:44px;border-radius:14px;background:var(--petal);color:var(--mul);display:flex;align-items:center;justify-content:center}
+.next b{display:block;font-size:14px}.next span{font-size:12px;color:var(--mut)}
+.next button{margin-left:auto;background:var(--rose);color:#fff;border:0;border-radius:12px;padding:10px 14px;font-weight:600;font-size:13px}
+h2{font-size:18px;margin:6px 0 12px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.tile{border-radius:22px;padding:16px;display:flex;flex-direction:column;gap:22px;text-align:left;border:0;font:inherit;color:var(--ink);cursor:pointer;transition:transform .15s}
+.tile:active{transform:scale(.97)}
+.tile b{font-size:15px;display:block}.tile span{font-size:12px;opacity:.75}
+.t-main{grid-column:1/3;background:var(--rose);color:#fff;flex-direction:row;align-items:center;gap:14px;border-radius:26px 26px 26px 8px}
+.t-main .ic{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center}
+.t-a{background:var(--peach);border-radius:22px 22px 8px 22px}.t-b{background:var(--petal);border-radius:22px 8px 22px 22px}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:6px 16px;margin-bottom:14px}
+.card.pad{padding:16px}
+.row{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border:0}
+.row .ic{width:36px;height:36px;border-radius:12px;background:var(--petal);color:var(--mul);display:flex;align-items:center;justify-content:center}
+.row small{display:block;font-size:11px;color:var(--mut)}.row b{font-size:13.5px;font-weight:600}
+.kv{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line);font-size:13.5px}.kv:last-child{border:0}.kv span:first-child{color:var(--mut)}.kv span:last-child{font-weight:600;text-align:right}
+.head{display:flex;align-items:center;gap:12px;padding:16px 0}
+.head h2{margin:0;font-size:22px}
+.back{width:38px;height:38px;border-radius:50%;background:#fff;border:1px solid var(--line);color:var(--mul);display:flex;align-items:center;justify-content:center}
+label{font-size:13px;font-weight:600;color:var(--mul);display:block;margin-bottom:6px}
+.f{margin-bottom:14px}
+input,textarea{width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:12px;font:inherit;font-size:16px;color:var(--ink);background:var(--bg);outline:none}
+input:focus,textarea:focus{border-color:var(--rose);background:#fff}
+textarea{resize:none;height:72px}
+.btn{width:100%;padding:15px;border-radius:14px;border:0;font:inherit;font-size:15px;font-weight:600;cursor:pointer;margin-top:4px}
+.btn:active{transform:scale(.98)}
+.p{background:var(--rose);color:#fff}.s{background:var(--petal);color:var(--mul);margin-top:10px}.d{background:#fff;color:#b3261e;border:1.5px solid #f2c9c6;margin-top:16px}
+.pills{display:flex;gap:8px;flex-wrap:wrap}
+.pill{padding:8px 15px;border-radius:20px;font-size:13px;font-weight:500;border:1.5px solid var(--line);color:var(--mut);background:#fff}
+.pill.sel{background:var(--mul);border-color:var(--mul);color:#fff}
+.avatar{width:72px;height:72px;border-radius:50%;background:var(--mul);color:var(--petal);display:flex;align-items:center;justify-content:center;font:600 28px var(--serif);margin:0 auto 10px}
+.plan{background:var(--mul);color:#fff;border-radius:26px;padding:24px;margin-bottom:14px;position:relative;overflow:hidden}
+.plan .price{font:600 38px var(--serif);margin:10px 0 2px}.plan small{color:var(--petal);opacity:.8}
+.chk{display:flex;gap:10px;align-items:center;padding:9px 0;font-size:14px}.chk i{color:var(--ok)}
+.rem{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);align-items:flex-start}.rem:last-child{border:0}
+.rem .dot{width:9px;height:9px;border-radius:50%;background:var(--rose);margin-top:5px}
+.rem b{font-size:14px}.rem small{display:block;color:var(--mut);font-size:12px;margin-top:2px;line-height:1.5}
+.rem button{margin-left:auto;background:none;border:0;color:var(--mut);padding:4px}
+.empty{text-align:center;padding:30px 10px;color:var(--mut);font-size:13px;line-height:1.6}
+.toast{position:fixed;top:calc(env(safe-area-inset-top,0px) + 14px);left:50%;transform:translate(-50%,-90px);background:var(--ink);color:#fff;padding:11px 18px;border-radius:30px;font-size:13px;font-weight:500;max-width:90%;text-align:center;z-index:200;transition:transform .3s,opacity .3s;opacity:0;pointer-events:none}
+.toast.show{transform:translate(-50%,0);opacity:1}
+nav{background:#fff;border-top:1px solid var(--line);display:flex;padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));flex-shrink:0}
+nav button{flex:1;background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--mut);font:500 11px system-ui}
+nav .pi{width:54px;height:30px;border-radius:15px;display:flex;align-items:center;justify-content:center;transition:background .2s}
+nav button.on{color:var(--mul);font-weight:700}nav button.on .pi{background:var(--petal)}
+.t-cyc{background:var(--mul);border-radius:26px 8px 26px 26px}
+.cy-hero{background:var(--mul);color:#fff;border-radius:26px;padding:20px;display:flex;gap:18px;align-items:center;margin-bottom:14px}
+.ring{position:relative;width:112px;height:112px;flex-shrink:0}
+.ring div{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring b{font:600 24px var(--serif)}.ring small{font-size:11px;color:var(--petal)}
+.cy-info small{display:block;color:var(--petal);opacity:.85;font-size:12px}.cy-info b{display:block;font-size:15px;margin-bottom:10px}
+.ph{display:inline-block;padding:4px 11px;border-radius:12px;font-size:12px;font-weight:700;color:var(--ink);margin-bottom:10px}
+.cal-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.cal-h b{font:600 17px var(--serif)}.cal-h button{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--mul);display:flex;align-items:center;justify-content:center}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.cal .w{font-size:11px;color:var(--mut);padding:4px 0}
+.cal button{aspect-ratio:1;border-radius:50%;border:1.5px solid transparent;background:none;font:500 13px system-ui;color:var(--ink);position:relative}
+.cal .pd{background:var(--rose);color:#fff}
+.cal .pp{background:var(--petal);border:1.5px dashed var(--rose);color:var(--rose-d)}
+.cal .fw{background:#dcefec}
+.cal .ovu{background:var(--ok);color:#fff}
+.cal .td{border-color:var(--mul);font-weight:700}
+.cal .sl{box-shadow:0 0 0 2px var(--mul)}
+.cal .lg::after{content:"";position:absolute;bottom:3px;left:50%;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:var(--mul)}
+.cal .pd.lg::after,.cal .ovu.lg::after{background:#fff}
+.leg{display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:var(--mut);margin-top:12px}
+.leg i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.chip{padding:8px 14px;border-radius:20px;font-size:13px;border:1.5px solid var(--line);color:var(--mut);background:#fff}
+.chip.on{background:var(--mul);border-color:var(--mul);color:#fff}
+.alert{background:var(--peach);color:#8a4a1f;font-size:13px;line-height:1.5;padding:12px 14px;border-radius:14px;margin-bottom:14px}
+.note{font-size:12px;color:var(--mut);line-height:1.6;margin-top:10px}
+.seg{display:flex;background:#fff;border:1px solid var(--line);border-radius:16px;padding:4px;margin-bottom:14px}
+.seg button{flex:1;border:0;background:none;padding:10px;border-radius:12px;font:600 13.5px system-ui;color:var(--mut);display:flex;gap:6px;align-items:center;justify-content:center;cursor:pointer}
+.seg button.on{background:var(--mul);color:#fff}
+.stp{display:flex;gap:4px;margin-top:8px}.stp i{flex:1;height:4px;border-radius:2px;background:var(--line)}.stp i.on{background:var(--rose)}.stp i.ok{background:var(--ok)}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:6px}
+.pcard{background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px;display:flex;flex-direction:column;gap:7px}
+.pcard .plogo{width:100%;aspect-ratio:1.6;border-radius:14px;display:flex;align-items:center;justify-content:center;font:700 26px var(--serif);color:#fff}
+.pimg{border-radius:14px;overflow:hidden;line-height:0}
+.rvw{padding:12px 0;border-bottom:1px solid var(--line)}.rvw:last-child{border:0}
+.rv-h{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.rv-av{width:30px;height:30px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font:700 13px var(--serif);flex-shrink:0}
+.rv-h b{font-size:13px;display:block}.rv-h small{font-size:11px;color:var(--mut)}
+.rvw p{font-size:13px;color:var(--ink);line-height:1.55}
+.pcard b{font-size:13px;line-height:1.3}
+.pcard .brand{font-size:11px;color:var(--mut)}
+.stars{color:#e0963c}
+.pr{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.pr b{font-size:15px}
+.pr del{font-size:11px;color:var(--mut);font-weight:400}
+.badge{background:var(--ok);color:#fff;font-size:10px;font-weight:700;border-radius:8px;padding:2px 6px}
+.stepper{display:flex;align-items:center;gap:10px}
+.stepper button{width:30px;height:30px;border-radius:9px;border:1.5px solid var(--line);background:#fff;color:var(--mul);font-size:16px;font-weight:700;line-height:1}
+.stepper span{min-width:16px;text-align:center;font-weight:700;font-size:13px}
+.cartbar{position:sticky;bottom:6px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:12px;margin:10px 0 14px;box-shadow:0 8px 22px rgba(107,31,79,.16)}
+.cartbar button{margin-left:auto;background:var(--rose);color:#fff;border:0;border-radius:12px;padding:10px 16px;font-weight:600;font-size:13px}
+.wchip{background:var(--petal);color:var(--mul);font-weight:700;font-size:12px;padding:6px 12px;border-radius:14px;margin-left:auto}
+/* payment sheet */
+.ov{position:fixed;inset:0;background:rgba(43,18,48,.5);opacity:0;pointer-events:none;transition:opacity .25s;z-index:100}
+.ov.on{opacity:1;pointer-events:all}
+.sheet{position:fixed;left:0;right:0;bottom:0;margin:0 auto;max-width:520px;background:#fff;border-radius:26px 26px 0 0;padding:10px 18px calc(18px + env(safe-area-inset-bottom,0px));transform:translateY(105%);transition:transform .32s cubic-bezier(.2,.8,.2,1);z-index:101;max-height:90%;overflow-y:auto}
+.sheet.on{transform:none}
+.grab{width:42px;height:4px;border-radius:2px;background:var(--line);margin:0 auto 14px}
+.sh-top{display:flex;align-items:center;gap:12px;padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:12px}
+.sh-top .lg{width:42px;height:42px;border-radius:12px;background:var(--mul);color:var(--petal);display:flex;align-items:center;justify-content:center}
+.sh-top b{font-size:14px;display:block}.sh-top small{font-size:12px;color:var(--mut)}
+.sh-top .amt{margin-left:auto;font:600 20px var(--serif);text-align:right}
+.demo{background:var(--peach);color:#8a4a1f;font-size:12px;padding:8px 12px;border-radius:10px;margin-bottom:12px}
+.m{border:1.5px solid var(--line);border-radius:14px;padding:13px 14px;margin-bottom:10px;cursor:pointer}
+.m.sel{border-color:var(--rose);background:#fff8f9}
+.m-h{display:flex;align-items:center;gap:12px;font-size:14px;font-weight:600}
+.m-h .rd{margin-left:auto;width:18px;height:18px;border-radius:50%;border:2px solid var(--line)}
+.m.sel .rd{border:5px solid var(--rose)}
+.m-b{display:none;margin-top:12px}.m.sel .m-b{display:block}
+.apps{display:flex;gap:8px;margin-bottom:10px}
+.app-c{flex:1;text-align:center;padding:10px 4px;border:1.5px solid var(--line);border-radius:12px;font-size:12px;font-weight:600;background:#fff}
+.app-c.sel{border-color:var(--rose);color:var(--rose-d)}
+.m-b p{font-size:12.5px;color:var(--mut);line-height:1.5}
+.st{text-align:center;padding:26px 6px 8px;display:none}
+.spin{width:44px;height:44px;border-radius:50%;border:4px solid var(--petal);border-top-color:var(--rose);margin:0 auto 16px;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.ok{width:62px;height:62px;border-radius:50%;background:var(--ok);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation-duration:2s!important}}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<div class="app">
+<div class="inner">
+
+<!-- HOME -->
+<div class="page active" id="pg-home">
+  <div class="hero">
+    <svg class="moon" width="170" height="170" viewBox="0 0 170 170"><circle cx="95" cy="85" r="60" fill="#fbe1e8"/><circle cx="122" cy="68" r="56" fill="#6b1f4f"/></svg>
+    <small id="greet">Good morning</small>
+    <h1 id="homeName">Welcome to Luna</h1>
+    <p>Your monthly care companion</p>
+  </div>
+  <div class="next">
+    <div class="ic" data-i="calendar"></div>
+    <div><b id="nextTitle">No collection booked</b><span id="nextSub">Schedule your sample visit</span></div>
+    <button onclick="goTo('book')">Book</button>
+  </div>
+  <h2>What would you like to do?</h2>
+  <div class="grid">
+    <button class="tile t-main" onclick="goTo('book')"><div class="ic" data-i="droplet" data-s="24"></div><div><b>Book a collection</b><span>Pick a date and time that suits you</span></div></button>
+    <button class="tile t-a" onclick="goTo('preserve')"><div data-i="shield" data-s="26"></div><div><b>Stem cells</b><span>Preserve and protect</span></div></button>
+    <button class="tile t-b" onclick="showNav('remind')"><div data-i="bell" data-s="26"></div><div><b>Reminders</b><span>Never miss a step</span></div></button>
+    <button class="tile t-main t-cyc" onclick="goTo('cycle')"><div class="ic" data-i="moon" data-s="24"></div><div><b>Cycle</b><span id="cycTile">Track your period and health</span></div></button>
+    
+<button class="tile t-b" style="grid-column:1/3;flex-direction:row;align-items:center;border-radius:8px 22px 22px 22px;gap:14px;background:#fff;border:1px solid var(--line)" onclick="user?showNav('profile'):goTo('register')"><div data-i="userplus" data-s="26" style="color:var(--mul)"></div><div><b id="regTile">Create your profile</b><span id="regSub">Takes less than a minute</span></div></button>
+  </div>
+  <h2>About Luna</h2>
+  <div class="card">
+    <div class="row"><div class="ic" data-i="phone" data-s="18"></div><div><small>Phone</small><b>98951 *****</b></div></div>
+    <div class="row"><div class="ic" data-i="pin" data-s="18"></div><div><small>Visit us</small><b>Luna Wellness Center</b></div></div>
+    <div class="row"><div class="ic" data-i="clock" data-s="18"></div><div><small>Hours</small><b>Mon–Sat, 9 AM – 6 PM</b></div></div>
+  </div>
+  <p style="font-size:13px;color:var(--mut);line-height:1.7;padding:0 4px">Luna helps women manage their monthly health, book sample collection, and preserve menstrual stem cells for future medical use.</p>
+</div>
+
+<!-- CYCLE -->
+<div class="page" id="pg-cycle">
+  <div class="head"><button class="back" onclick="goBack()" data-i="back" aria-label="Back"></button><h2>Cycle</h2></div>
+  <div class="card pad" id="cycSetup" style="display:none">
+    <h2 style="margin-top:0">Set up your cycle</h2>
+    <div class="f"><label for="cStart">First day of your last period</label><input type="date" id="cStart"></div>
+    <div style="display:flex;gap:12px"><div class="f" style="flex:1"><label for="cLen">Cycle length (days)</label><input type="number" id="cLen" value="28" min="21" max="45" inputmode="numeric"></div><div class="f" style="flex:1"><label for="cPl">Period length (days)</label><input type="number" id="cPl" value="5" min="2" max="10" inputmode="numeric"></div></div>
+    <button class="btn p" onclick="startCycle()">Start tracking</button>
+    <p class="note">Your cycle data stays on this device.</p>
+  </div>
+  <div id="cycMain">
+    <div id="cyAlert"></div>
+    <div class="cy-hero" id="cyHero"></div>
+    <div class="card pad" id="cyCal"></div>
+    <div class="card pad" id="cyDay"></div>
+    <h2>Self-care for today</h2><div class="card" id="cyCare"></div>
+    <h2>Your insights</h2><div class="card" id="cyIns"></div>
+    <h2>Cycle settings</h2>
+    <div class="card pad">
+      <div style="display:flex;gap:12px"><div class="f" style="flex:1"><label for="cLen2">Cycle length</label><input type="number" id="cLen2" min="21" max="45" inputmode="numeric" onchange="setCyc()"></div><div class="f" style="flex:1"><label for="cPl2">Period length</label><input type="number" id="cPl2" min="2" max="10" inputmode="numeric" onchange="setCyc()"></div></div>
+      <p class="note" style="margin-top:0">Once you have logged three periods, Luna uses your own average instead.</p>
+      <button class="btn d" onclick="cReset()">Reset cycle data</button>
+    </div>
+    <p class="note" style="padding:0 4px 8px">Predictions are estimates from the dates you log. They are not medical advice and cannot be used as contraception. See a doctor if you have concerns about your cycle.</p>
+  </div>
+</div>
+
+<!-- STORE -->
+<div class="page" id="pg-store">
+  <div class="head"><h2>Luna Store</h2><span class="wchip" id="stBal">₹0</span></div>
+  <p style="font-size:12.5px;color:var(--mut);margin:-6px 0 14px;line-height:1.5">Discounted pads for Luna donors, picked from trusted brands. Pay with your Luna wallet balance.</p>
+  <div class="chips" id="stCats" style="margin-bottom:14px"></div>
+  <div class="pgrid" id="stGrid"></div>
+  <div class="cartbar" id="stCartBar" style="display:none">
+    <div><b id="stCartCount" style="font-size:13px"></b><div style="font-size:12px;color:var(--mut)" id="stCartTot"></div></div>
+    <button onclick="openCart()">View cart</button>
+  </div>
+  <h2>My orders</h2>
+  <div class="card" id="stOrders"></div>
+  <p class="note" style="padding:0 4px 8px">Demo store. Orders are paid from your Luna wallet balance and nothing is actually shipped.</p>
+</div>
+
+<!-- REGISTER -->
+<div class="page" id="pg-register">
+  <div class="head"><button class="back" onclick="goBack()" data-i="back"></button><h2>Create profile</h2></div>
+  <div class="card pad">
+    <div class="f"><label for="regName">Full name</label><input id="regName" placeholder="Your name" autocomplete="name"></div>
+    <div class="f"><label for="regLocation">Location</label><input id="regLocation" placeholder="City or area"></div>
+    <div class="f"><label for="regEmail">Email</label><input type="email" id="regEmail" placeholder="you@email.com" autocomplete="email"></div>
+    <button class="btn p" onclick="saveUser()">Create profile</button>
+  </div>
+</div>
+
+<!-- BOOK -->
+<div class="page" id="pg-book">
+  <div class="head"><button class="back" onclick="goBack()" data-i="back"></button><h2>Book a collection</h2></div>
+  <div class="card pad">
+    <p style="font-size:13px;color:var(--mut);margin-bottom:16px;line-height:1.5">Choose a date and time for your sample collection.</p>
+    <div class="f"><label for="bookDate">Date</label><input type="date" id="bookDate"></div>
+    <div class="f"><label for="bookTime">Time</label><input type="time" id="bookTime"></div>
+    <button class="btn p" onclick="saveBooking()">Confirm booking</button>
+  </div>
+</div>
+
+<!-- PRESERVE -->
+<div class="page" id="pg-preserve">
+  <div class="head"><button class="back" onclick="goBack()" data-i="back"></button><h2>Stem cells</h2></div>
+  <div class="plan">
+    <svg style="position:absolute;right:-30px;top:-30px;opacity:.9" width="130" height="130" viewBox="0 0 170 170"><circle cx="95" cy="85" r="60" fill="#8a3a68"/></svg>
+    <small>Menstrual stem cell preservation</small>
+    <div class="price">₹5,000</div><small>per year · cancel anytime</small>
+  </div>
+  <div class="card">
+    <div class="chk"><i data-i="check" data-s="18"></i>Storage for up to 25 years</div>
+    <div class="chk"><i data-i="check" data-s="18"></i>At-home collection kit</div>
+    <div class="chk"><i data-i="check" data-s="18"></i>Processed in a certified lab</div>
+  </div>
+  <button class="btn p" onclick="openPay()">Subscribe for ₹5,000 / year</button>
+  <button class="btn s" onclick="goTo('book')">Book a collection first</button>
+</div>
+
+<!-- REMINDERS -->
+<div class="page" id="pg-remind">
+  <div class="head"><h2>Reminders</h2></div>
+  <div class="card pad">
+    <div class="f"><label for="remTitle">What should we remind you of?</label><input id="remTitle" placeholder="e.g. Take iron tablets"></div>
+    <div class="f"><label for="remDatetime">Date and time</label><input type="datetime-local" id="remDatetime"></div>
+    <div class="f"><label for="remNote">Note (optional)</label><textarea id="remNote" placeholder="Any extra details"></textarea></div>
+    <div class="f"><label>Repeat</label><div class="pills">
+      <span class="pill sel" data-r="none" onclick="pick(this)">None</span><span class="pill" data-r="daily" onclick="pick(this)">Daily</span><span class="pill" data-r="weekly" onclick="pick(this)">Weekly</span><span class="pill" data-r="monthly" onclick="pick(this)">Monthly</span></div></div>
+    <button class="btn p" onclick="addReminder()">Add reminder</button>
+  </div>
+  <h2>Upcoming</h2>
+  <div class="card" id="remList"></div>
+</div>
+
+<!-- PROFILE -->
+<div class="page" id="pg-profile">
+  <div class="head"><h2>Profile</h2></div>
+  <div class="seg"><button class="on" id="pt-prof" onclick="pTabSet('prof')"><span data-i="user" data-s="16"></span>Profile</button><button id="pt-wal" onclick="pTabSet('wal')"><span data-i="wallet" data-s="16"></span>Wallet</button></div>
+  <div id="tabProf">
+  <div class="card pad" style="text-align:center">
+    <div class="avatar" id="pAv">?</div>
+    <h2 id="pName" style="margin:0">Not registered</h2>
+    <div id="pLoc" style="font-size:13px;color:var(--mut);margin-top:3px">—</div>
+  </div>
+  <div class="card">
+    <div class="kv" id="pEmailRow" style="display:none"><span>Email</span><span id="pEmail"></span></div>
+    <div class="kv"><span>Membership</span><span id="pMem">—</span></div>
+  </div>
+  <h2>My bookings</h2>
+  <div class="card" id="bookList"></div>
+  </div>
+  <div id="tabWal" style="display:none">
+    <div class="card pad" id="wLock" style="text-align:center;display:none"><div class="empty" style="padding:6px 6px 14px">Create your profile to start receiving blood donation rewards in your wallet.</div><button class="btn p" onclick="goTo('register')">Create profile</button></div>
+    <div id="wMain">
+      <div class="plan"><svg style="position:absolute;right:-30px;top:-30px;opacity:.9" width="130" height="130" viewBox="0 0 170 170"><circle cx="95" cy="85" r="60" fill="#8a3a68"/></svg><small>Luna wallet balance</small><div class="price" id="wBal">₹0</div><small id="wPend"></small></div>
+      <div style="display:flex;gap:10px"><button class="btn p" style="margin:0" onclick="wF('don')">Log a donation</button><button class="btn s" style="margin:0" onclick="showNav('store')">Visit Luna Store</button></div>
+      <div class="card pad" id="wFd" style="display:none;margin-top:14px"><h2 style="margin-top:0">Log a blood donation</h2>
+        <div class="f"><label for="wdC">Donation center</label><input id="wdC" placeholder="e.g. Luna Wellness Center"></div>
+        <div class="f"><label for="wdD">Date of donation</label><input type="date" id="wdD"></div>
+        <button class="btn p" onclick="wDon()">Submit donation</button>
+        <p class="note">Your reward is credited only after the blood reaches the center and Num2Bio confirms it.</p></div>
+      <div class="alert" style="margin-top:14px"><b>How rewards work:</b> after you donate, the blood must reach the center. Num2Bio then confirms it and the amount is credited here in rupees, not points. Until then it shows as pending. Spend your balance in the Luna Store on discounted pads from Plush, Nua and Pee Safe.</div>
+      <h2>Donations</h2><div class="card" id="wDonList"></div>
+      <h2>Transactions</h2><div class="card" id="wTxList"></div>
+      <p class="note" style="padding:0 4px 8px">Demo: confirmation from Num2Bio is simulated with the button on each donation, and each confirmed donation pays ₹500. In the live app, confirmation and the amount come from Num2Bio's server.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SETTINGS -->
+<div class="page" id="pg-settings">
+  <div class="head"><h2>Settings</h2></div>
+  <div class="card"><div class="kv"><span>Theme</span><span>Light</span></div><div class="kv"><span>Version</span><span>Luna Pro 1.0</span></div><div class="kv"><span>Language</span><span>English</span></div></div>
+  <button class="btn s" onclick="goTo('book')">Book a new collection</button>
+  <button class="btn d" onclick="logout()">Log out</button>
+</div>
+
+</div>
+<nav>
+  <button class="on" id="n-home" onclick="showNav('home')"><span class="pi" data-i="home"></span>Home</button>
+  <button id="n-remind" onclick="showNav('remind')"><span class="pi" data-i="bell"></span>Reminders</button>
+  <button id="n-store" onclick="showNav('store')"><span class="pi" data-i="bag"></span>Luna Store</button>
+  <button id="n-profile" onclick="showNav('profile')"><span class="pi" data-i="user"></span>Profile</button>
+  <button id="n-settings" onclick="showNav('settings')"><span class="pi" data-i="sliders"></span>Settings</button>
+</nav>
+</div>
+
+<!-- PAYMENT SHEET (demo) -->
+<div class="ov" id="ov" onclick="closePay()"></div>
+<div class="sheet" id="sheet">
+  <div class="grab"></div>
+  <div id="payMain">
+    <div class="sh-top"><div class="lg" data-i="moon"></div><div><b>Luna Wellness</b><small>Secure checkout</small></div><div class="amt">₹5,000</div></div>
+    <div class="demo">Demo checkout. Nothing is charged and no details are stored.</div>
+    <div class="m sel" data-m="upi" onclick="pm(this)"><div class="m-h"><span data-i="phone2"></span>UPI<span class="rd"></span></div>
+      <div class="m-b"><div class="apps"><div class="app-c" onclick="ua(this,event)">GPay</div><div class="app-c" onclick="ua(this,event)">PhonePe</div><div class="app-c" onclick="ua(this,event)">Paytm</div></div>
+      <input id="upiId" placeholder="Or enter UPI ID (name@bank)" onclick="event.stopPropagation()"></div></div>
+    <div class="m" data-m="card" onclick="pm(this)"><div class="m-h"><span data-i="card"></span>Debit / Credit card<span class="rd"></span></div><div class="m-b"><p>Visa, Mastercard and RuPay. In the live app, a secure card form opens here.</p></div></div>
+    <div class="m" data-m="net" onclick="pm(this)"><div class="m-h"><span data-i="bank"></span>Net banking<span class="rd"></span></div><div class="m-b"><p>Pick your bank to continue.</p></div></div>
+    <div class="m" data-m="wallet" onclick="pm(this)"><div class="m-h"><span data-i="wallet"></span>Wallets<span class="rd"></span></div><div class="m-b"><p>Pay from your wallet balance.</p></div></div>
+    <button class="btn p" onclick="doPay()">Pay ₹5,000</button>
+  </div>
+  <div class="st" id="payBusy"><div class="spin"></div><b>Processing…</b><p style="font-size:13px;color:var(--mut);margin-top:6px">Please don't close this screen</p></div>
+  <div class="st" id="payDone"><div class="ok" data-i="check" data-s="30"></div><h2 style="margin:0 0 6px">Demo complete</h2><p style="font-size:13px;color:var(--mut);line-height:1.6;margin-bottom:18px">No money was taken. Connect a payment provider to accept real payments.</p><button class="btn p" onclick="finishPay()">Done</button></div>
+</div>
+
+<!-- CART SHEET -->
+<div class="ov" id="ov2" onclick="closeCart()"></div>
+<div class="sheet" id="sheet2">
+  <div class="grab"></div>
+  <div class="sh-top"><div class="lg" data-i="bag"></div><div><b>Your cart</b><small id="cartBalNote">Wallet balance</small></div><div class="amt" id="cartTot">₹0</div></div>
+  <div id="cartList"></div>
+  <button class="btn p" onclick="stCheckout()">Pay with wallet balance</button>
+  <p class="note" style="text-align:center">Demo checkout. Nothing is shipped.</p>
+</div>
+
+<!-- PRODUCT DETAIL SHEET -->
+<div class="ov" id="ov3" onclick="closeProduct()"></div>
+<div class="sheet" id="sheet3" style="position:relative">
+  <div class="grab"></div>
+  <button class="back" style="position:absolute;top:14px;right:18px;z-index:2;background:var(--bg)" onclick="closeProduct()" data-i="x" aria-label="Close"></button>
+  <div id="pd3Art"></div>
+  <div style="padding-top:14px">
+    <div id="pd3Brand" style="font-size:12px;text-transform:uppercase;letter-spacing:.4px;color:var(--mul);font-weight:700"></div>
+    <h2 id="pd3Name" style="margin:3px 0 6px"></h2>
+    <div id="pd3Rating" style="font-size:13px;color:var(--mut);margin-bottom:10px"></div>
+    <div class="pr" id="pd3Price" style="margin-bottom:14px"></div>
+    <p id="pd3Desc" style="font-size:13.5px;color:var(--mut);line-height:1.6;margin-bottom:14px"></p>
+    <div id="pd3Features" style="margin-bottom:16px"></div>
+    <div id="pd3Add" style="margin-bottom:22px"></div>
+    <h2>Customer reviews</h2>
+    <div id="pd3Reviews"></div>
+    <p class="note" style="padding-bottom:8px">Demo reviews shown for illustration.</p>
+  </div>
+</div>
+
+<script>
+const KEY='luna_state_v2';
+let user=null,bookings=[],reminders=[],plan=null,rep='none',hist=[],payOpen=false;
+const P={home:'<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',bell:'<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>',user:'<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',sliders:'<line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>',back:'<line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>',calendar:'<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',userplus:'<path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/>',shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',droplet:'<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>',phone:'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>',pin:'<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',clock:'<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',x:'<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>',check:'<polyline points="20 6 9 17 4 12"/>',phone2:'<rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/>',card:'<rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/>',bank:'<path d="M3 21h18M5 21V10m4 11V10m6 11V10m4 11V10M2 10l10-7 10 7"/>',wallet:'<path d="M20 12V8H6a2 2 0 0 1 0-4h12v4"/><path d="M4 6v12a2 2 0 0 0 2 2h14v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/>',moon:'<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>',chl:'<polyline points="15 18 9 12 15 6"/>',chr:'<polyline points="9 18 15 12 9 6"/>',leaf:'<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>',bag:'<path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>'};
+const ico=(n,s=22)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${P[n]}</svg>`;
+document.querySelectorAll('[data-i]').forEach(e=>e.innerHTML=ico(e.dataset.i,+e.dataset.s||22));
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function save(){try{localStorage.setItem(KEY,JSON.stringify({user,bookings,reminders,plan,cyc,wal,store}))}catch(e){}}
+function load(){try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s){user=s.user;bookings=s.bookings||[];reminders=s.reminders||[];plan=s.plan||null;if(s.cyc)cyc=s.cyc;if(s.wal)wal=s.wal;if(s.store)store=s.store}}catch(e){}}
+function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),2600)}
+function sw(p){const o=document.querySelector('.page.active'),n=$('pg-'+p);if(!n||o===n)return;o.classList.remove('active');n.classList.add('active');n.scrollTop=0}
+function showNav(p){document.querySelectorAll('nav button').forEach(b=>b.classList.remove('on'));const b=$('n-'+p);if(b)b.classList.add('on');hist=[];sw(p)}
+function goTo(p){const c=document.querySelector('.page.active');hist.push(c.id.slice(3));sw(p)}
+function goBack(){hist.length?sw(hist.pop()):showNav('home')}
+function pick(el){document.querySelectorAll('.pill').forEach(p=>p.classList.remove('sel'));el.classList.add('sel');rep=el.dataset.r}
+const fmt=t=>{const[h,m]=t.split(':').map(Number);return(h%12||12)+':'+String(m).padStart(2,'0')+(h<12?' AM':' PM')};
+
+function render(){cyAll();wRender();stRender();
+  const h=new Date().getHours();$('greet').textContent=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
+  if(user){$('pAv').textContent=user.name[0].toUpperCase();$('pName').textContent=user.name;$('pLoc').textContent=user.loc;$('homeName').textContent='Hi, '+user.name.split(' ')[0];$('regTile').textContent='My profile';$('regSub').textContent=user.name+' · '+user.loc;$('pEmail').textContent=user.email||'';$('pEmailRow').style.display=user.email?'flex':'none'}
+  else{$('pAv').textContent='?';$('pName').textContent='Not registered';$('pLoc').textContent='—';$('homeName').textContent='Welcome to Luna';$('regTile').textContent='Create your profile';$('regSub').textContent='Takes less than a minute';$('pEmailRow').style.display='none'}
+  $('pMem').textContent=plan?'Annual plan (demo)':user?'Active':'—';
+  const nb=bookings[bookings.length-1];$('nextTitle').textContent=nb?'Next collection':'No collection booked';$('nextSub').textContent=nb||'Schedule your sample visit';
+  $('bookList').innerHTML=bookings.length?bookings.map(b=>`<div class="row"><div class="ic">${ico('calendar',18)}</div><b>${esc(b)}</b></div>`).join(''):'<div class="empty">No bookings yet</div>';
+  $('remList').innerHTML=reminders.length?reminders.map(r=>`<div class="rem"><div class="dot"></div><div><b>${esc(r.title)}</b><small>${esc(r.when)}${esc(r.rl)}</small>${r.note?`<small>${esc(r.note)}</small>`:''}</div><button onclick="delRem(${r.id})" aria-label="Delete">${ico('x',18)}</button></div>`).join(''):'<div class="empty">No reminders yet.<br>Add your first one above.</div>';
+}
+function saveUser(){const n=$('regName').value.trim(),l=$('regLocation').value.trim();if(!n||!l)return toast('Please add your name and location');user={name:n,loc:l,email:$('regEmail').value.trim()};save();render();toast('Welcome, '+n.split(' ')[0]);goBack()}
+function saveBooking(){const d=$('bookDate').value,t=$('bookTime').value;if(!d||!t)return toast('Please pick a date and time');const l=new Date(d+'T12:00').toLocaleDateString('en-IN',{weekday:'short',month:'short',day:'numeric'})+' at '+fmt(t);bookings.push(l);save();render();toast('Booked: '+l);goBack()}
+function addReminder(){const t=$('remTitle').value.trim(),v=$('remDatetime').value;if(!t||!v)return toast('Add a title and a date and time');const d=new Date(v);reminders.push({id:Date.now(),title:t,note:$('remNote').value.trim(),when:d.toLocaleDateString('en-IN',{weekday:'short',month:'short',day:'numeric'})+' at '+fmt(String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')),rl:rep==='none'?'':' · '+rep[0].toUpperCase()+rep.slice(1)});save();['remTitle','remDatetime','remNote'].forEach(i=>$(i).value='');pick(document.querySelector('.pill[data-r=none]'));render();toast('Reminder added')}
+function delRem(id){reminders=reminders.filter(r=>r.id!==id);save();render();toast('Reminder removed')}
+function logout(){user=null;bookings=[];reminders=[];plan=null;cyc=newCyc();wal=newWal();store=newStore();save();render();toast('Logged out');showNav('home')}
+
+/* demo payment sheet */
+function openPay(){$('payMain').style.display='block';$('payBusy').style.display=$('payDone').style.display='none';$('ov').classList.add('on');$('sheet').classList.add('on');payOpen=true}
+function closePay(){$('ov').classList.remove('on');$('sheet').classList.remove('on');payOpen=false}
+function pm(el){document.querySelectorAll('.m').forEach(m=>m.classList.remove('sel'));el.classList.add('sel')}
+function ua(el,e){e.stopPropagation();document.querySelectorAll('.app-c').forEach(a=>a.classList.remove('sel'));el.classList.add('sel')}
+function doPay(){const u=$('upiId').value.trim();if(u&&!/^[\w.\-]{2,}@[a-zA-Z]{2,}$/.test(u))return toast('Enter a valid UPI ID, like name@bank');$('payMain').style.display='none';$('payBusy').style.display='block';setTimeout(()=>{$('payBusy').style.display='none';$('payDone').style.display='block'},1600)}
+function finishPay(){plan={demo:true};save();render();closePay();toast('Subscription started (demo)')}
+
+/* ===== wallet ===== */
+const REWARD=500,inr=n=>'₹'+Number(n).toLocaleString('en-IN');
+const newWal=()=>({bal:0,don:[],tx:[]});
+let wal=newWal(),pTab='prof',wForm='';
+P.down='<line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/>';P.up='<line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/>';
+const STG=['Donated · on the way to the center','Received at center · awaiting Num2Bio confirmation','Confirmed by Num2Bio · money credited'];
+const todayL=()=>new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+function pTabSet(t){pTab=t;$('tabProf').style.display=t==='prof'?'block':'none';$('tabWal').style.display=t==='wal'?'block':'none';$('pt-prof').classList.toggle('on',t==='prof');$('pt-wal').classList.toggle('on',t==='wal');$('pg-profile').scrollTop=0}
+function wF(f){wForm=wForm===f?'':f;wRender()}
+function wRender(){
+  $('wLock').style.display=user?'none':'block';$('wMain').style.display=user?'block':'none';
+  $('wBal').textContent=inr(wal.bal);
+  $('wPend').textContent=inr(wal.don.filter(d=>d.s<2).length*REWARD)+' pending Num2Bio confirmation';
+  $('wFd').style.display=wForm==='don'?'block':'none';
+  $('wdD').max=ds(new Date());if(!$('wdD').value)$('wdD').value=ds(new Date());
+  $('wDonList').innerHTML=wal.don.length?wal.don.slice().reverse().map(d=>`<div class="rem"><div class="dot" style="background:${d.s>1?'var(--ok)':'var(--rose)'}"></div><div style="flex:1"><b>${esc(d.c)}</b><small>${esc(d.d)} · ${STG[d.s]}</small><div class="stp">${[0,1,2].map(i=>`<i class="${i<=d.s?(d.s>1?'ok':'on'):''}"></i>`).join('')}</div>${d.s<2?`<button class="btn s" style="width:auto;margin:10px 0 0;padding:9px 14px;font-size:12px" onclick="wAdv(${d.id})">Demo: simulate ${d.s===0?'arrival at center':'Num2Bio confirmation'}</button>`:''}</div></div>`).join(''):'<div class="empty">No donations yet.<br>Tap Log a donation after you donate blood.</div>';
+  $('wTxList').innerHTML=wal.tx.length?wal.tx.slice().reverse().map(t=>`<div class="row"><div class="ic">${ico(t.k==='c'?'down':'up',18)}</div><div><b>${esc(t.t)}</b><small>${esc(t.d)}</small></div><b style="margin-left:auto;color:${t.k==='c'?'var(--ok)':'var(--ink)'}">${t.k==='c'?'+':'−'}${inr(t.a)}</b></div>`).join(''):'<div class="empty">No transactions yet</div>';
+}
+function wDon(){const c=$('wdC').value.trim(),d=$('wdD').value;if(!c||!d)return toast('Add the center and donation date');if(d>ds(new Date()))return toast('Donation date cannot be in the future');wal.don.push({id:Date.now(),c,d:fd(d,{day:'numeric',month:'short',year:'numeric'}),s:0});$('wdC').value='';wForm='';save();wRender();toast('Donation logged. Reward is pending confirmation')}
+function wAdv(id){const d=wal.don.find(x=>x.id===id);if(!d||d.s>1)return;d.s++;if(d.s===2){wal.bal+=REWARD;wal.tx.push({id:Date.now(),k:'c',a:REWARD,t:'Donation reward · '+d.c,d:todayL()});toast(inr(REWARD)+' credited to your wallet')}else toast('Marked as received at center');save();wRender()}
+
+
+/* ===== Luna Store ===== */
+const newStore=()=>({cart:{},orders:[]});
+let store=newStore(),stCat='All';
+const PRODUCTS=[
+{id:'p1',brand:'Plush',name:'Rash-Free Pads (Regular)',cat:'Plush',mrp:250,off:15,rating:4.6,rv:812,col:'#2f7d78',icon:'droplet',
+ desc:'Soft, breathable daily pads made to reduce rashes and irritation on light-to-medium flow days.',
+ features:['Breathable top layer','Rash-free formula','Leak-guard sides','Pack of 14'],
+ reviews:[{n:'Ananya',r:5,d:'2 weeks ago',t:'Super soft and no rashes even on a long day out.'},{n:'Priya',r:4,d:'1 month ago',t:'Comfortable, though I wish the pack had more pads.'},{n:'Megha',r:5,d:'2 months ago',t:'Switched from my old brand and never looked back.'}]},
+{id:'p2',brand:'Plush',name:'Overnight Pads XL',cat:'Plush',mrp:320,off:15,rating:4.5,rv:540,col:'#2f7d78',icon:'moon',
+ desc:'Extra-long pads with added absorbency, made for heavy-flow nights and side-sleeping.',
+ features:['XL length coverage','High absorbency core','Wide back panel','Pack of 10'],
+ reviews:[{n:'Fatima',r:5,d:'3 weeks ago',t:'Zero leaks even after a full night\u2019s sleep.'},{n:'Ritu',r:4,d:'1 month ago',t:'Great coverage, slightly bulky but worth it.'},{n:'Sana',r:5,d:'2 months ago',t:'My go-to for the first two heavy days.'}]},
+{id:'p3',brand:'Nua',name:'Ultra-Thin Daily Pads',cat:'Nua',mrp:280,off:20,rating:4.7,rv:1220,col:'#b84460',icon:'droplet',
+ desc:'Ultra-thin pads that stay discreet under clothing without compromising on absorption.',
+ features:['Ultra-thin core','Cottony-soft surface','Odour-control layer','Pack of 15'],
+ reviews:[{n:'Kavya',r:5,d:'10 days ago',t:'So thin you forget you\u2019re wearing one.'},{n:'Isha',r:4,d:'1 month ago',t:'Good for light days, would like a thicker version too.'},{n:'Divya',r:5,d:'6 weeks ago',t:'Breathable and doesn\u2019t feel sweaty at all.'}]},
+{id:'p4',brand:'Nua',name:'Overnight Pads',cat:'Nua',mrp:300,off:20,rating:4.6,rv:690,col:'#b84460',icon:'moon',
+ desc:'Longer overnight pads with a wider back panel for reliable protection while you sleep.',
+ features:['Extra coverage at the back','High absorbency','Soft, breathable cover','Pack of 10'],
+ reviews:[{n:'Neha',r:5,d:'2 weeks ago',t:'Finally a pad that handles heavy nights well.'},{n:'Tanya',r:4,d:'1 month ago',t:'Works well, packaging could be more discreet.'},{n:'Simran',r:5,d:'2 months ago',t:'No more waking up to check for leaks.'}]},
+{id:'p5',brand:'Pee Safe',name:'Herbal Pads',cat:'Pee Safe',mrp:260,off:10,rating:4.4,rv:430,col:'#c9772e',icon:'leaf',
+ desc:'Herbal-infused pads made with neem and aloe vera extracts to help soothe sensitive skin.',
+ features:['Neem & aloe vera infused','Chemical-free top layer','Gentle on sensitive skin','Pack of 14'],
+ reviews:[{n:'Harini',r:4,d:'3 weeks ago',t:'Feels gentle, nice subtle herbal smell.'},{n:'Meera',r:5,d:'1 month ago',t:'No irritation at all, even on sensitive days.'},{n:'Asha',r:4,d:'2 months ago',t:'Good quality, would buy again.'}]},
+{id:'p6',brand:'Pee Safe',name:'Overnight Pads',cat:'Pee Safe',mrp:310,off:10,rating:4.3,rv:265,col:'#c9772e',icon:'moon',
+ desc:'High-absorbency overnight pads designed to handle heavy flow through the night.',
+ features:['12-hour protection','Wide overnight coverage','Soft, non-woven top layer','Pack of 10'],
+ reviews:[{n:'Pooja',r:5,d:'1 week ago',t:'Great for the heaviest night of my cycle.'},{n:'Lakshmi',r:4,d:'1 month ago',t:'Comfortable fit, slightly thicker than expected.'},{n:'Nandini',r:5,d:'2 months ago',t:'Reliable, no leaks reported from me.'}]}
+];
+const shade=(hex,pc)=>{const f=parseInt(hex.slice(1),16),t=pc<0?0:255,pp=Math.abs(pc)/100,R=f>>16,G=f>>8&255,B=f&255;return '#'+(0x1000000+(Math.round((t-R)*pp)+R)*0x10000+(Math.round((t-G)*pp)+G)*0x100+(Math.round((t-B)*pp)+B)).toString(16).slice(1)};
+const starStr=r=>{const f=Math.round(r);return '\u2605'.repeat(f)+'\u2606'.repeat(5-f)};
+function pArt(p,h){
+  const g='g'+p.id;
+  return `<svg viewBox="0 0 160 100" width="100%" height="${h}" preserveAspectRatio="xMidYMid slice" style="display:block">
+    <defs><linearGradient id="${g}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${p.col}"/><stop offset="1" stop-color="${shade(p.col,-18)}"/></linearGradient></defs>
+    <rect width="160" height="100" fill="url(#${g})"/>
+    <rect width="160" height="36" fill="#ffffff22"/>
+    <circle cx="134" cy="80" r="32" fill="#ffffff14"/>
+    <circle cx="20" cy="86" r="18" fill="#ffffff10"/>
+    <g transform="translate(16,38) scale(2.7)" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity=".92">${P[p.icon]}</g>
+    <text x="14" y="23" font-family="Georgia,serif" font-size="14" font-weight="700" fill="#fff">${esc(p.brand)}</text>
+  </svg>`;
+}
+const OST=['Order placed','Shipped','Delivered'];
+const pPrice=p=>Math.round(p.mrp*(100-p.off)/100);
+const stQty=id=>store.cart[id]||0;
+function stAdd(id){store.cart[id]=(store.cart[id]||0)+1;save();stRender()}
+function stSub(id){if(store.cart[id]){store.cart[id]--;if(store.cart[id]<=0)delete store.cart[id]}save();stRender()}
+function stFilter(c){stCat=c;stRender()}
+const stCartCount=()=>Object.values(store.cart).reduce((a,b)=>a+b,0);
+const stCartTotal=()=>Object.entries(store.cart).reduce((s,[id,q])=>s+pPrice(PRODUCTS.find(p=>p.id===id))*q,0);
+function stRender(){
+  if(!$('pg-store'))return;
+  $('stBal').textContent=inr(wal.bal);
+  const cats=['All','Plush','Nua','Pee Safe'];
+  $('stCats').innerHTML=cats.map(c=>`<span class="chip${c===stCat?' on':''}" onclick="stFilter('${c}')">${c}</span>`).join('');
+  const list=PRODUCTS.filter(p=>stCat==='All'||p.cat===stCat);
+  $('stGrid').innerHTML=list.map(p=>{const price=pPrice(p),q=stQty(p.id);return `<div class="pcard"><div onclick="openProduct('${p.id}')" style="cursor:pointer"><div class="pimg">${pArt(p,104)}</div><b style="display:block;margin-top:8px">${esc(p.name)}</b><div class="brand">${esc(p.brand)} · <span class="stars">${starStr(p.rating)}</span> ${p.rating} (${p.rv})</div><div class="pr"><b>${inr(price)}</b><del>${inr(p.mrp)}</del><span class="badge">${p.off}% off</span></div></div>${q?`<div class="stepper"><button onclick="stSub('${p.id}')" aria-label="Remove one">−</button><span>${q}</span><button onclick="stAdd('${p.id}')" aria-label="Add one">+</button></div>`:`<button class="btn s" style="margin:0;padding:10px" onclick="stAdd('${p.id}')">Add to cart</button>`}</div>`}).join('');
+  const cnt=stCartCount();
+  $('stCartBar').style.display=cnt?'flex':'none';
+  if(cnt){$('stCartCount').textContent=cnt+' item'+(cnt>1?'s':'')+' in cart';$('stCartTot').textContent=inr(stCartTotal())}
+  $('stOrders').innerHTML=store.orders.length?store.orders.slice().reverse().map(o=>`<div class="rem"><div class="dot" style="background:${o.s>1?'var(--ok)':'var(--rose)'}"></div><div style="flex:1"><b>${esc(o.items.map(i=>i.n+' ×'+i.q).join(', '))}</b><small>${esc(o.d)} · ${inr(o.tot)} · ${OST[o.s]}</small><div class="stp">${[0,1,2].map(i=>`<i class="${i<=o.s?(o.s>1?'ok':'on'):''}"></i>`).join('')}</div>${o.s<2?`<button class="btn s" style="width:auto;margin:10px 0 0;padding:9px 14px;font-size:12px" onclick="stAdv(${o.id})">Demo: simulate ${o.s===0?'shipping':'delivery'}</button>`:''}</div></div>`).join(''):'<div class="empty">No orders yet.<br>Add some pads to your cart to get started.</div>';
+  renderCart();
+}
+function stAdv(id){const o=store.orders.find(x=>x.id===id);if(!o||o.s>1)return;o.s++;save();stRender()}
+function openCart(){renderCart();$('ov2').classList.add('on');$('sheet2').classList.add('on')}
+function closeCart(){$('ov2').classList.remove('on');$('sheet2').classList.remove('on')}
+function renderCart(){
+  if(!$('cartList'))return;
+  const items=Object.entries(store.cart).map(([id,q])=>({p:PRODUCTS.find(x=>x.id===id),q}));
+  $('cartList').innerHTML=items.length?items.map(({p,q})=>`<div class="row"><div class="ic" style="padding:0;overflow:hidden">${pArt(p,36)}</div><div style="flex:1"><b>${esc(p.name)}</b><small>${inr(pPrice(p))} × ${q}</small></div><div class="stepper"><button onclick="stSub('${p.id}')" aria-label="Remove one">−</button><span>${q}</span><button onclick="stAdd('${p.id}')" aria-label="Add one">+</button></div></div>`).join(''):'<div class="empty">Your cart is empty</div>';
+  $('cartTot').textContent=inr(stCartTotal());
+  $('cartBalNote').textContent='Wallet balance: '+inr(wal.bal);
+}
+function stCheckout(){
+  const tot=stCartTotal();
+  if(!tot)return toast('Your cart is empty');
+  if(!user)return toast('Please create your profile first');
+  if(tot>wal.bal)return toast('Not enough wallet balance. Donate blood to earn more.');
+  const items=Object.entries(store.cart).map(([id,q])=>{const p=PRODUCTS.find(x=>x.id===id);return{n:p.name,q}});
+  wal.bal-=tot;
+  wal.tx.push({id:Date.now(),k:'d',a:tot,t:'Luna Store order',d:todayL()});
+  store.orders.push({id:Date.now(),items,tot,d:todayL(),s:0});
+  store.cart={};
+  save();stRender();closeCart();toast('Order placed for '+inr(tot));
+}
+let pdCur=null;
+function openProduct(id){pdCur=id;renderProductDetail();$('ov3').classList.add('on');$('sheet3').classList.add('on')}
+function closeProduct(){$('ov3').classList.remove('on');$('sheet3').classList.remove('on')}
+function pdAdd(){stAdd(pdCur);renderProductDetail()}
+function pdSub(){stSub(pdCur);renderProductDetail()}
+function renderProductDetail(){
+  if(!pdCur)return;
+  const p=PRODUCTS.find(x=>x.id===pdCur);if(!p)return;
+  const price=pPrice(p),q=stQty(p.id);
+  $('pd3Art').innerHTML=pArt(p,170);
+  $('pd3Brand').textContent=p.brand;
+  $('pd3Name').textContent=p.name;
+  $('pd3Rating').innerHTML=`<span class="stars">${starStr(p.rating)}</span> ${p.rating} · ${p.rv} ratings`;
+  $('pd3Price').innerHTML=`<b>${inr(price)}</b><del>${inr(p.mrp)}</del><span class="badge">${p.off}% off</span>`;
+  $('pd3Desc').textContent=p.desc;
+  $('pd3Features').innerHTML=p.features.map(f=>`<div class="chk"><i data-i="check" data-s="16"></i>${esc(f)}</div>`).join('');
+  document.querySelectorAll('#pd3Features [data-i]').forEach(e=>e.innerHTML=ico(e.dataset.i,+e.dataset.s||16));
+  $('pd3Add').innerHTML=q?`<div class="stepper" style="justify-content:center"><button onclick="pdSub()" aria-label="Remove one">−</button><span>${q}</span><button onclick="pdAdd()" aria-label="Add one">+</button></div>`:`<button class="btn p" onclick="pdAdd()">Add to cart</button>`;
+  $('pd3Reviews').innerHTML=p.reviews.map(r=>`<div class="rvw"><div class="rv-h"><div class="rv-av" style="background:${p.col}">${esc(r.n[0])}</div><div><b>${esc(r.n)}</b><small>${esc(r.d)}</small></div><span class="stars" style="margin-left:auto">${starStr(r.r)}</span></div><p>${esc(r.t)}</p></div>`).join('');
+}
+
+/* ===== cycle tracker ===== */
+const newCyc=()=>({len:28,plen:5,starts:[],logs:{}});
+let cyc=newCyc(),cmo=new Date(),csel=null;
+const ds=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const pd=s=>{const[a,b,c]=s.split('-').map(Number);return new Date(a,b-1,c)};
+const addD=(s,n)=>{const d=pd(s);d.setDate(d.getDate()+n);return ds(d)};
+const dif=(a,b)=>Math.round((pd(a)-pd(b))/864e5);
+const fd=(s,o)=>pd(s).toLocaleDateString('en-IN',o||{weekday:'short',day:'numeric',month:'short'});
+const DM={day:'numeric',month:'short'};
+const gaps=()=>{const s=cyc.starts,g=[];for(let i=1;i<s.length;i++)g.push(dif(s[i],s[i-1]));return g};
+const cL=()=>{const g=gaps().slice(-3).filter(x=>x>=15&&x<=60);return g.length>=2?Math.round(g.reduce((a,b)=>a+b)/g.length):cyc.len};
+const MOODS=['Happy','Calm','Low','Irritable','Anxious'],SYM=['Cramps','Headache','Bloating','Fatigue','Cravings','Back pain','Acne','Tender breasts'],FLOW=['Light','Medium','Heavy'];
+const DESC={'Menstrual':'Your body is shedding the uterine lining. Energy may dip, so go easy on yourself.','Follicular':'Oestrogen is rising, so energy and mood often lift.','Fertile window':'Pregnancy is most likely around now. Energy is often high.','Ovulation':'An egg is likely released around today. This is your most fertile time.','Luteal':'Progesterone rises. Mood changes, bloating and other PMS symptoms can show up.','Period due':'Your period is expected, or a little late. Cycles can vary by a few days.'};
+const CARE={'Menstrual':['Eat warm, iron-rich food such as lentils, spinach and dates, and drink plenty of fluids.','Gentle movement like walking or stretching can ease cramps.','Rest more and aim for an early night.'],'Follicular':['A good time for new workouts and tougher tasks.','Add fresh vegetables, fruit and protein to every meal.','Plan something new while your focus is high.'],'Fertile window':['Strength or cardio sessions often feel easier now.','Stay hydrated and include fibre-rich foods.','Mild one-sided pain around ovulation is common.'],'Luteal':['Magnesium-rich foods such as nuts and seeds may ease PMS.','Choose steady, lower-intensity exercise like yoga or swimming.','Less caffeine and salt can help with bloating and anxiety.'],'Period due':['Stress, travel, illness and poor sleep can delay a period.','If a pregnancy is possible and you are more than a week late, take a test.','If cycles are often late, mention it to your doctor.']};
+const SY={'Cramps':'Cramps: a warm compress and gentle stretching can help.','Back pain':'Back pain: try gentle stretches and a warm compress.','Headache':'Headache: drink water, rest in a dim room and keep meals regular.','Bloating':'Bloating: cut back on salty food and try ginger or peppermint tea.','Fatigue':'Fatigue: prioritise sleep and iron-rich foods.','Cravings':'Cravings: snacks with protein and fibre keep energy steady.','Acne':'Acne: wash gently, avoid picking and keep pillowcases fresh.','Tender breasts':'Tender breasts: a supportive bra and less caffeine may help.'};
+function cyInfo(x){
+  const s=cyc.starts;if(!s.length)return{};
+  const L=cL(),all=s.slice();for(let k=1;k<=8;k++)all.push(addD(s[s.length-1],L*k));
+  let i=-1;for(let j=0;j<all.length;j++)if(all[j]<=x)i=j;
+  if(i<0)return{};
+  const st=all[i],logged=i<s.length,len=i<s.length-1?dif(all[i+1],st):L,n=dif(x,st)+1,ov=len-14;
+  let k='';if(n<=cyc.plen)k=logged?'pd':'pp';else if(n===ov)k='ovu';else if(n>=ov-5&&n<=ov+1)k='fw';
+  return{k}
+}
+function cyPhase(day,L){const ov=L-14;if(day>L)return['Period due','#f4b183'];if(day<=cyc.plen)return['Menstrual','#ff8da6'];if(day<ov-5)return['Follicular','#e6a6d0'];if(day<=ov+1)return[day===ov?'Ovulation':'Fertile window','#5fd0c4'];return['Luteal','#f4b183']}
+function cyHero(){
+  const s=cyc.starts,t=ds(new Date()),L=cL(),last=s[s.length-1],day=dif(t,last)+1,ov=L-14,[ph,col]=cyPhase(day,L);
+  const nx=addD(last,L),dn=dif(nx,t),sh=day>ov+1?L:0,C=301.6,off=C*(1-Math.min(day/L,1));
+  $('cycTile').textContent='Day '+day+' · '+ph;
+  $('cyHero').innerHTML=`<div class="ring"><svg width="112" height="112" viewBox="0 0 112 112" style="transform:rotate(-90deg)"><circle cx="56" cy="56" r="48" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="9"/><circle cx="56" cy="56" r="48" fill="none" stroke="${col}" stroke-width="9" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${off}"/></svg><div><b>Day ${day}</b><small>of ${L}</small></div></div><div class="cy-info"><span class="ph" style="background:${col}">${ph}</span><small>Next period · ${fd(nx,DM)}</small><b>${dn>0?'in '+dn+' day'+(dn>1?'s':''):dn===0?'Today':(-dn)+' day'+(dn<-1?'s':'')+' late'}</b><small>Fertile window</small><b>${fd(addD(last,ov-6+sh),DM)} – ${fd(addD(last,ov+sh),DM)}</b></div>`;
+}
+function cyCal(){
+  const m=new Date(cmo.getFullYear(),cmo.getMonth(),1),t=ds(new Date());
+  let h=`<div class="cal-h"><button onclick="cMo(-1)" aria-label="Previous month">${ico('chl',18)}</button><b>${m.toLocaleDateString('en-IN',{month:'long',year:'numeric'})}</b><button onclick="cMo(1)" aria-label="Next month">${ico('chr',18)}</button></div><div class="cal">`;
+  'SMTWTFS'.split('').forEach(w=>h+=`<div class="w">${w}</div>`);
+  for(let i=0;i<m.getDay();i++)h+='<span></span>';
+  const nd=new Date(m.getFullYear(),m.getMonth()+1,0).getDate();
+  for(let d=1;d<=nd;d++){const x=ds(new Date(m.getFullYear(),m.getMonth(),d));h+=`<button class="${cyInfo(x).k||''}${x===t?' td':''}${x===csel?' sl':''}${cyc.logs[x]?' lg':''}" onclick="cSel('${x}')">${d}</button>`}
+  $('cyCal').innerHTML=h+`</div><div class="leg"><span><i style="background:var(--rose)"></i>Period</span><span><i style="border:1.5px dashed var(--rose)"></i>Predicted</span><span><i style="background:#dcefec"></i>Fertile</span><span><i style="background:var(--ok)"></i>Ovulation</span></div>`;
+}
+function cyDay(){
+  const t=ds(new Date()),x=csel||t,lg=cyc.logs[x]||{},isS=cyc.starts.includes(x);
+  const ch=(a,cur,k)=>a.map(v=>`<span class="chip${(Array.isArray(cur)?cur.includes(v):cur===v)?' on':''}" onclick="cSet('${k}','${v}')">${v}</span>`).join('');
+  $('cyDay').innerHTML=`<h2 style="margin-top:0">${fd(x,{weekday:'long',day:'numeric',month:'long'})}</h2>`+(x>t?'<p class="note" style="margin:0">This day is a prediction. You can log how you feel once it arrives.</p>':`<button class="btn ${isS?'s':'p'}" style="margin-bottom:14px" onclick="cTog('${x}')">${isS?'Remove period start':'Period started this day'}</button><label>Mood</label><div class="chips">${ch(MOODS,lg.mood,'mood')}</div><label>Symptoms</label><div class="chips">${ch(SYM,lg.sym||[],'sym')}</div><label>Flow</label><div class="chips">${ch(FLOW,lg.flow,'flow')}</div>`);
+}
+function cyCare(){
+  const t=ds(new Date()),last=cyc.starts[cyc.starts.length-1],L=cL(),day=dif(t,last)+1,[ph]=cyPhase(day,L),lg=cyc.logs[t]||{};
+  const tips=(CARE[ph]||CARE['Fertile window']).concat((lg.sym||[]).map(v=>SY[v]).filter(Boolean));
+  if(lg.flow==='Heavy')tips.push('Heavy flow: soaking a pad or tampon every hour for several hours needs medical attention.');
+  $('cyCare').innerHTML=`<div class="row"><div class="ic">${ico('moon',18)}</div><div><small>${ph} · Day ${day}</small><b style="font-weight:500;line-height:1.5">${DESC[ph]}</b></div></div>`+tips.map(x=>`<div class="row"><div class="ic">${ico('leaf',18)}</div><b style="font-weight:500;line-height:1.5">${x}</b></div>`).join('');
+}
+function cyIns(){
+  const s=cyc.starts,g=gaps(),L=cL(),last=s[s.length-1],t=ds(new Date()),ov=L-14,day=dif(t,last)+1,late=day-L,a=[];
+  if(late>7)a.push(`Your period is ${late} days late. Stress, travel and illness can delay it. If a pregnancy is possible, take a test, and see a doctor if it is weeks late.`);
+  if(g.slice(-3).some(x=>x<21||x>35))a.push('A recent cycle was shorter than 21 or longer than 35 days. Occasional changes are common, but if it keeps happening, mention it to a doctor.');
+  $('cyAlert').innerHTML=a.map(x=>`<div class="alert">${x}</div>`).join('');
+  const r=g.slice(-6),reg=g.length>=3?(Math.max(...r)-Math.min(...r)<=7?'Regular':'Varies'):'Log 3 cycles',kv=(k,v)=>`<div class="kv"><span>${k}</span><span>${v}</span></div>`;
+  $('cyIns').innerHTML=kv('Average cycle',L+' days')+kv('Period length',cyc.plen+' days')+kv('Regularity',reg)+kv('Next period',fd(addD(last,L),DM))+kv('Next ovulation (est.)',fd(addD(last,ov-1+(day>ov?L:0)),DM))+kv('Periods logged',s.length);
+}
+function cyAll(){
+  const has=cyc.starts.length>0;
+  $('cycSetup').style.display=has?'none':'block';$('cycMain').style.display=has?'block':'none';
+  $('cStart').max=ds(new Date());
+  if(!has){$('cycTile').textContent='Track your period and health';return}
+  csel=csel||ds(new Date());cyHero();cyCal();cyDay();cyCare();cyIns();
+  if(document.activeElement!==$('cLen2'))$('cLen2').value=cyc.len;
+  if(document.activeElement!==$('cPl2'))$('cPl2').value=cyc.plen;
+}
+function startCycle(){const d=$('cStart').value,L=+$('cLen').value,p=+$('cPl').value;if(!d)return toast('Pick the first day of your last period');if(d>ds(new Date()))return toast('That date is in the future');if(!(L>=21&&L<=45)||!(p>=2&&p<=10))return toast('Cycle: 21 to 45 days. Period: 2 to 10 days.');cyc.len=L;cyc.plen=p;cyc.starts=[d];csel=ds(new Date());cmo=new Date();save();cyAll();toast('Cycle tracking started')}
+function setCyc(){const L=+$('cLen2').value,p=+$('cPl2').value;if(L>=21&&L<=45)cyc.len=L;if(p>=2&&p<=10)cyc.plen=p;save();cyAll()}
+function cMo(n){cmo=new Date(cmo.getFullYear(),cmo.getMonth()+n,1);cyCal()}
+function cSel(x){csel=x;cyCal();cyDay()}
+function cTog(x){const i=cyc.starts.indexOf(x);i<0?cyc.starts.push(x):cyc.starts.splice(i,1);cyc.starts.sort();save();cyAll()}
+function cSet(k,v){const x=csel||ds(new Date()),l=cyc.logs[x]=cyc.logs[x]||{};if(k==='sym'){l.sym=l.sym||[];const i=l.sym.indexOf(v);i<0?l.sym.push(v):l.sym.splice(i,1)}else l[k]=l[k]===v?'':v;if(!l.mood&&!l.flow&&!(l.sym&&l.sym.length))delete cyc.logs[x];save();cyAll()}
+function cReset(){if(confirm('Delete all cycle data from this device?')){cyc=newCyc();csel=null;save();cyAll();toast('Cycle data cleared')}}
+
+load();render();
+$('bookDate').min=new Date().toISOString().slice(0,10);
+if('serviceWorker'in navigator&&/^https?:/.test(location.protocol)&&location.hostname!=='localhost')navigator.serviceWorker.register('sw.js').catch(()=>{});
+if(window.Capacitor&&Capacitor.Plugins&&Capacitor.Plugins.App)Capacitor.Plugins.App.addListener('backButton',()=>{if(payOpen)closePay();else if(hist.length)goBack();else if(!$('pg-home').classList.contains('active'))showNav('home');else Capacitor.Plugins.App.exitApp()});
+</script>
+</body>
+</html>
