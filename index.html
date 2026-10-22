@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)file:///C:/Users/DELL/Documents/Codex/2026-10-22/t/outputs/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#6b1f4f">
+
+<title>Luna App Pro · TACO Curator</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --ink:#2b1230;
+  --mul:#6b1f4f;
+  --rose:#e2506f;
+  --rose-d:#c13a5a;
+  --petal:#fbe1e8;
+  --peach:#fde9dc;
+  --plum-l:#f1e1ec;
+  --bg:#fbf4f6;
+  --line:#efd9e0;
+  --mut:#86767f;
+  --ok:#2f7d78;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif
+}
+html,body{height:100%;background:var(--bg);overscroll-behavior:none}
+body{font-family:system-ui,-apple-system,Roboto,sans-serif;color:var(--ink)}
+.app{height:100%;max-width:520px;margin:0 auto;display:flex;flex-direction:column;background:var(--bg);position:relative;overflow:hidden;padding-top:env(safe-area-inset-top,0px)}
+.inner{flex:1;position:relative;overflow:hidden}
+.page{position:absolute;inset:0;overflow-y:auto;padding:0 18px 28px;opacity:0;transform:translateY(10px);transition:opacity .22s,transform .22s;pointer-events:none}
+.page.active{opacity:1;transform:none;pointer-events:all}
+svg{display:block;flex-shrink:0}
+h1,h2,.serif{font-family:var(--serif);font-weight:600;letter-spacing:-.2px}
+.hero{background:var(--mul);color:#fff;margin:0 -18px;padding:28px 22px 52px;border-radius:0 0 34px 34px;position:relative;overflow:hidden}
+.hero .moon{position:absolute;right:-26px;top:-18px;opacity:.95}
+.hero small{font-size:13px;color:var(--petal);opacity:.85}
+.hero h1{font-size:30px;margin-top:6px;line-height:1.15;max-width:70%}
+.hero p{font-size:13px;color:var(--petal);opacity:.75;margin-top:8px}
+.hero-taco-badge{position:absolute;top:24px;right:18px;background:rgba(255,255,255,0.18);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:6px 12px;font-size:12px;font-weight:700;color:#fff;display:flex;align-items:center;gap:5px;cursor:pointer;z-index:2}
+.next{background:#fff;border-radius:20px;padding:16px;margin:-30px 0 16px;display:flex;align-items:center;gap:14px;box-shadow:0 10px 28px rgba(107,31,79,.14);position:relative}
+.next .ic{width:44px;height:44px;border-radius:14px;background:var(--petal);color:var(--mul);display:flex;align-items:center;justify-content:center}
+.next b{display:block;font-size:14px}.next span{font-size:12px;color:var(--mut)}
+.next button{margin-left:auto;background:var(--rose);color:#fff;border:0;border-radius:12px;padding:10px 14px;font-weight:600;font-size:13px}
+.spotlight{background:linear-gradient(135deg,var(--peach) 0%,var(--petal) 50%,var(--plum-l) 100%);border:1px solid var(--line);border-radius:18px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;cursor:pointer}
+.spotlight b{font-size:13px;display:block;color:var(--ink)}.spotlight span{font-size:11.5px;color:var(--mul)}
+h2{font-size:18px;margin:6px 0 12px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.tile{border-radius:22px;padding:16px;display:flex;flex-direction:column;gap:22px;text-align:left;border:0;font:inherit;color:var(--ink);cursor:pointer;transition:transform .15s}
+.tile:active{transform:scale(.97)}
+.tile b{font-size:15px;display:block}.tile span{font-size:12px;opacity:.75}
+.t-main{grid-column:1/3;background:var(--rose);color:#fff;flex-direction:row;align-items:center;gap:14px;border-radius:26px 26px 26px 8px}
+.t-main .ic{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center}
+.t-a{background:var(--peach);border-radius:22px 22px 8px 22px}.t-b{background:var(--petal);border-radius:22px 8px 22px 22px}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:6px 16px;margin-bottom:14px}
+.card.pad{padding:16px}
+.row{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border:0}
+.row .ic{width:36px;height:36px;border-radius:12px;background:var(--petal);color:var(--mul);display:flex;align-items:center;justify-content:center}
+.row small{display:block;font-size:11px;color:var(--mut)}.row b{font-size:13.5px;font-weight:600}
+.kv{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line);font-size:13.5px}.kv:last-child{border:0}.kv span:first-child{color:var(--mut)}.kv span:last-child{font-weight:600;text-align:right}
+.head{display:flex;align-items:center;gap:12px;padding:16px 0}
+.head h2{margin:0;font-size:22px}
+.back{width:38px;height:38px;border-radius:50%;background:#fff;border:1px solid var(--line);color:var(--mul);display:flex;align-items:center;justify-content:center;cursor:pointer}
+label{font-size:13px;font-weight:600;color:var(--mul);display:block;margin-bottom:6px}
+.f{margin-bottom:14px}
+input,textarea,select{width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:12px;font:inherit;font-size:15px;color:var(--ink);background:var(--bg);outline:none}
+input:focus,textarea:focus,select:focus{border-color:var(--rose);background:#fff}
+textarea{resize:none;height:72px}
+.btn{width:100%;padding:15px;border-radius:14px;border:0;font:inherit;font-size:15px;font-weight:600;cursor:pointer;margin-top:4px}
+.btn:active{transform:scale(.98)}
+.p{background:var(--rose);color:#fff}.s{background:var(--petal);color:var(--mul);margin-top:10px}.d{background:#fff;color:#b3261e;border:1.5px solid #f2c9c6;margin-top:16px}
+.pills{display:flex;gap:8px;flex-wrap:wrap}
+.pill{padding:8px 15px;border-radius:20px;font-size:13px;font-weight:500;border:1.5px solid var(--line);color:var(--mut);background:#fff;cursor:pointer}
+.pill.sel{background:var(--mul);border-color:var(--mul);color:#fff}
+.avatar{width:72px;height:72px;border-radius:50%;background:var(--mul);color:var(--petal);display:flex;align-items:center;justify-content:center;font:600 28px var(--serif);margin:0 auto 10px}
+.plan{background:var(--mul);color:#fff;border-radius:26px;padding:24px;margin-bottom:14px;position:relative;overflow:hidden}
+.plan .price{font:600 38px var(--serif);margin:10px 0 2px}.plan small{color:var(--petal);opacity:.8}
+.chk{display:flex;gap:10px;align-items:center;padding:9px 0;font-size:14px}.chk i{color:var(--ok)}
+.rem{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);align-items:flex-start}.rem:last-child{border:0}
+.rem .dot{width:9px;height:9px;border-radius:50%;background:var(--rose);margin-top:5px;flex-shrink:0}
+.rem b{font-size:14px}.rem small{display:block;color:var(--mut);font-size:12px;margin-top:2px;line-height:1.5}
+.rem button{margin-left:auto;background:none;border:0;color:var(--mut);padding:4px;cursor:pointer}
+.empty{text-align:center;padding:30px 10px;color:var(--mut);font-size:13px;line-height:1.6}
+.toast{position:fixed;top:calc(env(safe-area-inset-top,0px) + 14px);left:50%;transform:translate(-50%,-90px);background:var(--ink);color:#fff;padding:11px 18px;border-radius:30px;font-size:13px;font-weight:500;max-width:90%;text-align:center;z-index:200;transition:transform .3s,opacity .3s;opacity:0;pointer-events:none}
+.toast.show{transform:translate(-50%,0);opacity:1}
+nav{background:#fff;border-top:1px solid var(--line);display:flex;padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));flex-shrink:0}
+nav button{flex:1;background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--mut);font:500 11px system-ui;cursor:pointer}
+nav .pi{width:54px;height:30px;border-radius:15px;display:flex;align-items:center;justify-content:center;transition:background .2s;position:relative}
+nav button.on{color:var(--mul);font-weight:700}nav button.on .pi{background:var(--petal)}
+.badge-count{position:absolute;top:2px;right:10px;background:var(--rose);color:#fff;border-radius:50%;width:15px;height:15px;font-size:9.5px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.t-cyc{background:var(--mul);color:#fff;border-radius:22px 22px 8px 22px}
+.t-cyc .ic{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center}
+.t-health{background:#8a3a68;color:#fff;border-radius:22px 8px 22px 22px}
+.t-health .ic{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center}
+.hr-item{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);align-items:flex-start}.hr-item:last-child{border:0}
+.hr-item .dot{width:9px;height:9px;border-radius:50%;margin-top:6px;flex-shrink:0}
+.hr-item b{font-size:13.5px}
+.hr-item small{display:block;color:var(--mut);font-size:12px;margin-top:2px;line-height:1.5}
+.hr-item .hv{text-align:right;flex-shrink:0}
+.hr-item .hv small{margin-top:4px;color:var(--mut)}
+.cy-hero{background:var(--mul);color:#fff;border-radius:26px;padding:20px;display:flex;gap:18px;align-items:center;margin-bottom:14px}
+.ring{position:relative;width:112px;height:112px;flex-shrink:0}
+.ring div{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring b{font:600 24px var(--serif)}.ring small{font-size:11px;color:var(--petal)}
+.cy-info small{display:block;color:var(--petal);opacity:.85;font-size:12px}.cy-info b{display:block;font-size:15px;margin-bottom:10px}
+.ph{display:inline-block;padding:4px 11px;border-radius:12px;font-size:12px;font-weight:700;color:var(--ink);margin-bottom:10px}
+.cal-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.cal-h b{font:600 17px var(--serif)}.cal-h button{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--mul);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.cal .w{font-size:11px;color:var(--mut);padding:4px 0}
+.cal button{aspect-ratio:1;border-radius:50%;border:1.5px solid transparent;background:none;font:500 13px system-ui;color:var(--ink);position:relative;cursor:pointer}
+.cal .pd{background:var(--rose);color:#fff}
+.cal .pp{background:var(--petal);border:1.5px dashed var(--rose);color:var(--rose-d)}
+.cal .fw{background:#dcefec}
+.cal .ovu{background:var(--ok);color:#fff}
+.cal .td{border-color:var(--mul);font-weight:700}
+.cal .sl{box-shadow:0 0 0 2px var(--mul)}
+.cal .lg::after{content:"";position:absolute;bottom:3px;left:50%;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:var(--mul)}
+.cal .pd.lg::after,.cal .ovu.lg::after{background:#fff}
+.leg{display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:var(--mut);margin-top:12px}
+.leg i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.chip{padding:8px 14px;border-radius:20px;font-size:12.5px;border:1.5px solid var(--line);color:var(--mut);background:#fff;cursor:pointer;white-space:nowrap}
+.chip.on{background:var(--mul);border-color:var(--mul);color:#fff}
+.alert{background:var(--peach);color:#8a4a1f;font-size:13px;line-height:1.5;padding:12px 14px;border-radius:14px;margin-bottom:14px}
+.note{font-size:12px;color:var(--mut);line-height:1.6;margin-top:10px}
+.seg{display:flex;background:#fff;border:1px solid var(--line);border-radius:16px;padding:4px;margin-bottom:14px}
+.seg button{flex:1;border:0;background:none;padding:10px;border-radius:12px;font:600 13.5px system-ui;color:var(--mut);display:flex;gap:6px;align-items:center;justify-content:center;cursor:pointer}
+.seg button.on{background:var(--mul);color:#fff}
+.stp{display:flex;gap:4px;margin-top:8px}.stp i{flex:1;height:4px;border-radius:2px;background:var(--line)}.stp i.on{background:var(--rose)}.stp i.ok{background:var(--ok)}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:6px}
+.pcard{background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px;display:flex;flex-direction:column;justify-content:between;gap:7px}
+.pcard .plogo{width:100%;aspect-ratio:1.5;border-radius:14px;display:flex;align-items:center;justify-content:center;font:700 24px var(--serif);color:#fff}
+.pimg{border-radius:14px;overflow:hidden;line-height:0;cursor:pointer}
+.rvw{padding:12px 0;border-bottom:1px solid var(--line)}.rvw:last-child{border:0}
+.rv-h{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.rv-av{width:30px;height:30px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font:700 13px var(--serif);flex-shrink:0}
+.rv-h b{font-size:13px;display:block}.rv-h small{font-size:11px;color:var(--mut)}
+.rvw p{font-size:13px;color:var(--ink);line-height:1.55}
+.pcard b{font-size:13px;line-height:1.3}
+.pcard .brand{font-size:11px;color:var(--mut)}
+.stars{color:#e0963c}
+.pr{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.pr b{font-size:14.5px;color:var(--mul)}
+.pr del{font-size:11px;color:var(--mut);font-weight:400}
+.badge{background:var(--ok);color:#fff;font-size:10px;font-weight:700;border-radius:8px;padding:2px 6px}
+.stepper{display:flex;align-items:center;gap:8px}
+.stepper button{width:28px;height:28px;border-radius:8px;border:1.5px solid var(--line);background:#fff;color:var(--mul);font-size:15px;font-weight:700;line-height:1;cursor:pointer}
+.stepper span{min-width:16px;text-align:center;font-weight:700;font-size:13px}
+.cartbar{position:sticky;bottom:6px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:12px;margin:10px 0 14px;box-shadow:0 8px 22px rgba(107,31,79,.16);z-index:20}
+.cartbar button{margin-left:auto;background:var(--rose);color:#fff;border:0;border-radius:12px;padding:10px 16px;font-weight:600;font-size:13px;cursor:pointer}
+.wchip{background:var(--petal);color:var(--mul);font-weight:700;font-size:12px;padding:6px 12px;border-radius:14px;margin-left:auto;cursor:pointer}
+.vial-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0 12px}
+.vial-btn{border:1.5px solid var(--line);border-radius:14px;padding:10px 6px;text-align:center;background:var(--bg);cursor:pointer;transition:border-color .15s,background .15s}
+.vial-btn.sel{border-color:var(--mul);background:var(--petal);color:var(--mul);font-weight:700}
+.vial-btn b{display:block;font-size:13px}.vial-btn small{font-size:11px;color:var(--rose-d)}
+/* payment & cart sheets */
+.ov{position:fixed;inset:0;background:rgba(43,18,48,.5);opacity:0;pointer-events:none;transition:opacity .25s;z-index:100}
+.ov.on{opacity:1;pointer-events:all}
+.sheet{position:fixed;left:0;right:0;bottom:0;margin:0 auto;max-width:520px;background:#fff;border-radius:26px 26px 0 0;padding:12px 18px calc(18px + env(safe-area-inset-bottom,0px));transform:translateY(105%);transition:transform .32s cubic-bezier(.2,.8,.2,1);z-index:101;max-height:92%;overflow-y:auto}
+.sheet.on{transform:none}
+.grab{width:42px;height:4px;border-radius:2px;background:var(--line);margin:0 auto 14px}
+.sh-top{display:flex;align-items:center;gap:12px;padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:12px}
+.sh-top .lg{width:42px;height:42px;border-radius:12px;background:var(--mul);color:var(--petal);display:flex;align-items:center;justify-content:center}
+.sh-top b{font-size:14px;display:block}.sh-top small{font-size:12px;color:var(--mut)}
+.sh-top .amt{margin-left:auto;font:600 18px var(--serif);text-align:right;color:var(--mul)}
+.demo{background:var(--peach);color:#8a4a1f;font-size:12px;padding:8px 12px;border-radius:10px;margin-bottom:12px}
+.m{border:1.5px solid var(--line);border-radius:14px;padding:13px 14px;margin-bottom:10px;cursor:pointer}
+.m.sel{border-color:var(--rose);background:#fff8f9}
+.m-h{display:flex;align-items:center;gap:12px;font-size:14px;font-weight:600}
+.m-h .rd{margin-left:auto;width:18px;height:18px;border-radius:50%;border:2px solid var(--line)}
+.m.sel .rd{border:5px solid var(--rose)}
+.m-b{display:none;margin-top:12px}.m.sel .m-b{display:block}
+.st{text-align:center;padding:26px 6px 8px;display:none}
+.spin{width:44px;height:44px;border-radius:50%;border:4px solid var(--petal);border-top-color:var(--rose);margin:0 auto 16px;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.ok{width:62px;height:62px;border-radius:50%;background:var(--ok);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+.cute-card{background:linear-gradient(135deg,#ffffff 0%,var(--peach) 40%,var(--petal) 100%);border:1px solid var(--line);border-radius:24px;padding:18px;margin-bottom:16px;position:relative}
+.cute-card .kicker{display:inline-block;background:var(--mul);color:var(--petal);font-size:10px;font-weight:700;letter-spacing:.6px;padding:3px 9px;border-radius:12px;margin-bottom:8px;text-transform:uppercase}
+.cute-card h3{font-family:var(--serif);font-size:18px;color:var(--ink);margin-bottom:4px}
+.cute-card .sub{font-size:12px;color:var(--mul);font-weight:600;margin-bottom:8px}
+.cute-card p{font-size:12.5px;color:var(--ink);line-height:1.6;margin-bottom:12px}
+.v-tier{background:rgba(255,255,255,.8);border-radius:16px;padding:10px 12px;border:1px solid var(--line);margin-top:6px}
+.v-tier .vt-row{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--line);font-size:12.5px}
+.v-tier .vt-row:last-child{border:0}
+.v-tier .vt-row b{color:var(--mul)}
+.v-badge{background:var(--ok);color:#fff;font-size:10px;font-weight:700;border-radius:6px;padding:2px 6px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation-duration:2s!important}}
+.app.auth-required nav{display:none}
+.auth-brand{text-align:center;padding:30px 12px 20px}
+.auth-mark{width:68px;height:68px;border-radius:24px;background:linear-gradient(145deg,var(--rose),var(--mul));color:#fff;display:flex;align-items:center;justify-content:center;font:600 34px var(--serif);margin:0 auto 14px;box-shadow:0 12px 28px rgba(107,31,79,.2)}
+.auth-brand h1{font-size:30px}
+.auth-brand p{font-size:13px;color:var(--mut);margin-top:7px;line-height:1.55}
+.auth-foot{font-size:12px;color:var(--mut);line-height:1.55;text-align:center;margin:14px 5px 4px}
+.auth-toggle{border:0;background:none;color:var(--mul);font:600 13px system-ui;text-decoration:underline;cursor:pointer;padding:12px;width:100%}
+button:focus-visible,.pill:focus-visible,.chip:focus-visible,.vial-btn:focus-visible{outline:3px solid rgba(194,58,90,.35);outline-offset:2px}
+.pcard{justify-content:space-between}</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<div class="app auth-required">
+<div class="inner">
+
+<!-- HOME -->
+<div class="page" id="pg-home">
+  <div class="hero">
+    <svg class="moon" width="170" height="170" viewBox="0 0 170 170"><circle cx="95" cy="85" r="60" fill="#fbe1e8"></circle><circle cx="122" cy="68" r="56" fill="#6b1f4f"></circle></svg>
+    <div class="hero-taco-badge" onclick="pTabSet('wal');goTo('profile')"> <span id="homeTacoBal">0 TACO</span></div>
+    <small id="greet">Good afternoon</small>
+    <h1 id="homeName">Welcome to Luna</h1>
+    <p>Your monthly care companion &amp; curator sanctuary</p>
+  </div>
+  <div class="next">
+    <div class="ic" data-i="calendar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
+    <div><b id="nextTitle">No collection booked</b><span id="nextSub">Schedule your sample visit · earn up to 80 TACO</span></div>
+    <button onclick="goTo('book')">Book</button>
+  </div>
+  <div class="spotlight" onclick="pTabSet('wal');goTo('profile')">
+    <div><b>Extra Vial Curator Benefit </b><span>1 Vial = 20 TACO · 2 Vials = 55 TACO · 3 Vials = 80 TACO</span></div>
+    <div data-i="chr" data-s="18" style="color:var(--mul)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+  </div>
+  <h2>What would you like to do?</h2>
+  <div class="grid">
+    <button class="tile t-main" onclick="goTo('book')"><div class="ic" data-i="droplet" data-s="24"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg></div><div><b>Book a collection</b><span>Earn TACO points for research vials</span></div></button>
+    <button class="tile t-a" onclick="goTo('preserve')"><div data-i="shield" data-s="26"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div><div><b>Stem cells</b><span>Preserve for 25 yrs</span></div></button>
+    <button class="tile t-b" onclick="showNav('remind')"><div data-i="bell" data-s="26"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></div><div><b>Reminders</b><span>Never miss a step</span></div></button>
+    <button class="tile t-cyc" onclick="goTo('cycle')"><div class="ic" data-i="moon" data-s="24"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></div><div><b>Cycle</b><span id="cycTile">Track your period &amp; health</span></div></button>
+    <button class="tile t-health" onclick="goTo('health')"><div class="ic" data-i="report" data-s="26"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3" width="12" height="18" rx="2"></rect><rect x="9" y="1" width="6" height="4" rx="1"></rect><line x1="8" y1="9" x2="16" y2="9"></line><line x1="8" y1="13" x2="16" y2="13"></line><line x1="8" y1="17" x2="12" y2="17"></line></svg></div><div><b>Health Report</b><span id="hrTile">Book a collection first</span></div></button>
+    <button class="tile t-b" style="grid-column:1/3;flex-direction:row;align-items:center;border-radius:8px 22px 22px 22px;gap:14px;background:#fff;border:1px solid var(--line)" onclick="user?showNav('profile'):goTo('register')"><div data-i="userplus" data-s="26" style="color:var(--mul)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg></div><div><b id="regTile">Create your profile</b><span id="regSub">Takes less than a minute</span></div></button>
+  </div>
+  <h2>About Luna</h2>
+  <div class="card">
+    <div class="row"><div class="ic" data-i="phone" data-s="18"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></div><div><small>Phone</small><b>98951 04221</b></div></div>
+    <div class="row"><div class="ic" data-i="pin" data-s="18"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div><div><small>Visit us</small><b>Luna Wellness Center &amp; Bio-Lab</b></div></div>
+    <div class="row"><div class="ic" data-i="clock" data-s="18"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div><div><small>Hours</small><b>Mon–Sat, 8:30 AM – 6:30 PM</b></div></div>
+  </div>
+  <p style="font-size:13px;color:var(--mut);line-height:1.7;padding:0 4px">Luna helps women track their monthly cycle, preserve regenerative menstrual stem cells, and convert vital bio-donations into TACO curator tokens for certified organic wellness products.</p>
+</div>
+
+<!-- CYCLE -->
+<div class="page" id="pg-cycle">
+  <div class="head"><button class="back" onclick="goBack()" data-i="back" aria-label="Back"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></button><h2>Cycle</h2></div>
+  <div class="card pad" id="cycSetup" style="display: block;">
+    <h2 style="margin-top:0">Set up your cycle</h2>
+    <div class="f"><label for="cStart">First day of your last period</label><input type="date" id="cStart" max="2026-10-22"></div>
+    <div style="display:flex;gap:12px"><div class="f" style="flex:1"><label for="cLen">Cycle length (days)</label><input type="number" id="cLen" value="28" min="21" max="45" inputmode="numeric"></div><div class="f" style="flex:1"><label for="cPl">Period length (days)</label><input type="number" id="cPl" value="5" min="2" max="10" inputmode="numeric"></div></div>
+    <button class="btn p" onclick="startCycle()">Start tracking</button>
+    <p class="note">Your cycle data stays on this device.</p>
+  </div>
+  <div id="cycMain" style="display: none;">
+    <div id="cyAlert"></div>
+    <div class="cy-hero" id="cyHero"></div>
+    <div class="card pad" id="cyCal"></div>
+    <div class="card pad" id="cyDay"></div>
+    <h2>Self-care for today</h2><div class="card" id="cyCare"></div>
+    <h2>Your insights</h2><div class="card" id="cyIns"></div>
+    <h2>Cycle settings</h2>
+    <div class="card pad">
+      <div style="display:flex;gap:12px"><div class="f" style="flex:1"><label for="cLen2">Cycle length</label><input type="number" id="cLen2" min="21" max="45" inputmode="numeric" onchange="setCyc()"></div><div class="f" style="flex:1"><label for="cPl2">Period length</label><input type="number" id="cPl2" min="2" max="10" inputmode="numeric" onchange="setCyc()"></div></div>
+      <p class="note" style="margin-top:0">Once you have logged three periods, Luna uses your own average instead.</p>
+      <button class="btn d" onclick="cReset()">Reset cycle data</button>
+    </div>
+    <p class="note" style="padding:0 4px 8px">Predictions are estimates from the dates you log. They are not medical advice and cannot be used as contraception.</p>
+  </div>
+</div>
+
+<!-- STORE -->
+<div class="page" id="pg-store">
+  <div class="head"><h2>Luna Shop</h2><span class="wchip" id="stBal" onclick="pTabSet('wal');goTo('profile')"> 0 TACO</span></div>
+  <p style="font-size:12.5px;color:var(--mut);margin:-6px 0 12px;line-height:1.5">Redeem your TACO Points for organic pads, VWash, menstrual cups &amp; wellness care.</p>
+  <div class="chips" id="stCats" style="margin-bottom:14px;overflow-x:auto;display:flex;flex-wrap:nowrap;padding-bottom:4px"><span class="chip on" onclick="stFilter('All')">All</span><span class="chip" onclick="stFilter('Pads')">Pads</span><span class="chip" onclick="stFilter('VWash &amp; Intimate')">VWash &amp; Intimate</span><span class="chip" onclick="stFilter('Menstrual Cups')">Menstrual Cups</span><span class="chip" onclick="stFilter('Tampons')">Tampons</span><span class="chip" onclick="stFilter('Cramp Care')">Cramp Care</span></div>
+  <div class="pgrid" id="stGrid">
+      <div class="pcard">
+        <div>
+          <div class="pimg" onclick="openProduct('p1')"><svg viewBox="0 0 160 100" width="100%" height="100" preserveAspectRatio="xMidYMid slice" style="display:block">
+    <defs><lineargradient id="gp1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6b1f4f"></stop><stop offset="1" stop-color="#581941"></stop></lineargradient></defs>
+    <rect width="160" height="100" fill="url(#gp1)"></rect>
+    <rect width="160" height="36" fill="#ffffff22"></rect>
+    <circle cx="134" cy="80" r="32" fill="#ffffff14"></circle>
+    <circle cx="20" cy="86" r="18" fill="#ffffff10"></circle>
+    <g transform="translate(16,38) scale(2.6)" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity=".92"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></g>
+    <text x="14" y="23" font-family="Georgia,serif" font-size="13" font-weight="700" fill="#fff">Plush</text>
+  </svg></div>
+          <div style="font-size:11px;font-weight:700;color:var(--mut);text-transform:uppercase;margin-top:6px">Plush</div>
+          <b style="display:block;margin-top:2px;cursor:pointer" onclick="openProduct('p1')">Rash-Free Pure Cotton Pads</b>
+          
+          
+          <select style="margin:6px 0;padding:6px 8px;font-size:11.5px;border-radius:9px" onchange="stSelectVariant('p1',this.selectedIndex)">
+            <option value="0" selected="">10 Pads (100 TACO)</option><option value="1">30 Pads (280 TACO)</option>
+          </select>
+
+          <div class="pr" style="margin-top:4px">
+            <b> 100 TACO</b>
+            <del>120 TACO</del>
+            
+          </div>
+        </div>
+
+        <div style="margin-top:8px">
+          
+          <button class="btn s" style="margin:0;padding:9px;font-size:12.5px" onclick="stAdd('p1',0)">Add to cart</button>
+        </div>
+      </div>
+      <div class="pcard">
+        <div>
+          <div class="pimg" onclick="openProduct('p2')"><svg viewBox="0 0 160 100" width="100%" height="100" preserveAspectRatio="xMidYMid slice" style="display:block">
+    <defs><lineargradient id="gp2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b84460"></stop><stop offset="1" stop-color="#97384f"></stop></lineargradient></defs>
+    <rect width="160" height="100" fill="url(#gp2)"></rect>
+    <rect width="160" height="36" fill="#ffffff22"></rect>
+    <circle cx="134" cy="80" r="32" fill="#ffffff14"></circle>
+    <circle cx="20" cy="86" r="18" fill="#ffffff10"></circle>
+    <g transform="translate(16,38) scale(2.6)" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity=".92"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></g>
+    <text x="14" y="23" font-family="Georgia,serif" font-size="13" font-weight="700" fill="#fff">Nua</text>
+  </svg></div>
+          <div style="font-size:11px;font-weight:700;color:var(--mut);text-transform:uppercase;margin-top:6px">Nua</div>
+          <b style="display:block;margin-top:2px;cursor:pointer" onclick="openProduct('p2')">Ultra-Thin Overnight Pads</b>
+          
+          
+          <select style="margin:6px 0;padding:6px 8px;font-size:11.5px;border-radius:9px" onchange="stSelectVariant('p2',this.selectedIndex)">
+            <option value="0" selected="">10 Pads (100 TACO)</option><option value="1">30 Pads (280 TACO)</option>
+          </select>
+
+          <div class="pr" style="margin-top:4px">
+            <b> 100 TACO</b>
+            <del>130 TACO</del>
+            
+          </div>
+        </div>
+
+        <div style="margin-top:8px">
+          
+          <button class="btn s" style="margin:0;padding:9px;font-size:12.5px" onclick="stAdd('p2',0)">Add to cart</button>
+        </div>
+      </div>
+      <div class="pcard">
+        <div>
+          <div class="pimg" onclick="openProduct('p3')"><svg viewBox="0 0 160 100" width="100%" height="100" preserveAspectRatio="xMidYMid slice" style="display:block">
+    <defs><lineargradient id="gp3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2f7d78"></stop><stop offset="1" stop-color="#276762"></stop></lineargradient></defs>
+    <rect width="160" height="100" fill="url(#gp3)"></rect>
+    <rect width="160" height="36" fill="#ffffff22"></rect>
+    <circle cx="134" cy="80" r="32" fill="#ffffff14"></circle>
+    <circle cx="20" cy="86" r="18" fill="#ffffff10"></circle>
+    <g transform="translate(16,38) scale(2.6)" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity=".92"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></g>
+    <text x="14" y="23" font-family="Georgia,serif" font-size="13" font-weight="700" fill="#fff">VWash</text>
+  </svg></div>
+          <div style="font-size:11px;font-weight:700;color:var(--mut);text-transform:uppercase;margin-top:6px">VWash</div>
+          <b style="display:block;margin-top:2px;cursor:pointer" onclick="openProduct('p3')">VWash Plus Expert Intimate Wash</b>
+          
+          
+          <select style="margin:6px 0;padding:6px 8px;font-size:11.5px;border-radius:9px" onchange="stSelectVariant('p3',this.selectedIndex)">
+            <option value="0" selected="">100ml (130 TACO)</option><option value="1">200ml (240 TACO)</option>
+          </select>
+
+          <div class="pr" style="margin-top:4px">
+            <b> 130 TACO</b>
+            <del>160 TACO</del>
+            
+          </div>
+        </div>
+
+        <div style="margin-top:8px">
+          
+          <button class="btn s" style="margin:0;padding:9px;font-size:12.5px" onclick="stAdd('p3',0)">Add to cart</button>
+        </div>
+      </div>
+      <div class="pcard">
+        <div>
+          <div class="pimg" onclick="openProduct('p4')"><svg viewBox="0 0 160 100" width="100%" height="100" preserveAspectRatio="xMidYMid slice" style="display:block">
+    <defs><lineargradient id="gp4" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2f7d78"></stop><stop offset="1" stop-color="#276762"></stop></lineargradient></defs>
+    <rect width="160" height="100" fill="url(#gp4)"></rect>
+    <rect width="160" height="36" fill="#ffffff22"></rect>
+    <circle cx="134" cy="80" r="32" fill="#ffffff14"></circle>
+    <circle cx="20" cy="86" r="18" fill="#ffffff10"></circle>
+    <g transform="translate(16,38) scale(2.6)" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity=".92"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"></path><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path></g>
+    <text x="14" y="23" font-family="Georgia,serif" font-size="13" font-weight="700" fill="#fff">VWash</text>
+  </svg></div>
+          <div style="font-size:11px;font-weight:700;color:var(--mut);text-transform:uppercase;margin-top:6px">VWash</div>
+          <b style="display:block;margin-top:2px;cursor:pointer" onclick="openProduct('p4')">VWash Foaming Wash &amp; Cleansing Wipes</b>
+          
+          
+          <select style="margin:6px 0;padding:6px 8px;font-size:11.5px;border-radius:9px" onchange="stSelectVariant('p4',this.selectedIndex)">
+            <option value="0" selected="">Foam + Wipes (190 TACO)</option><option value="1">15 Wipes (75 TACO)</option>
+          </select>
+
+          <div class="pr" style="margin-top:4px">
+            <b> 190 TACO</b>
+            <del>250 TACO</del>
+            
+          </div>
+        </div>
+
+        <div style="margin-top:8px">
+          
+          <button class="btn s" style="margin:0;padding:9px;font-size:12.5px" onclick="stAdd('p4',0)">Add to cart</button>
+        </div>
+      </div>
+      <div class="pcard">
+        <div>
+          <div class="pimg" onclick="openProduct('p5')"><svg viewBox="0 0 160 100" width="100%" height="100" preserveAspectRatio="xMidYMid slice" style="display:block">
+    <defs><lineargradient id="gp5" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8a3a68"></stop><stop offset="1" stop-color="#713055"></stop></lineargradient></defs>
+    <rect width="160" height="100" fill="url(#gp5)"></rect>
+    <rect width="160" height="36" fill="#ffffff22"></rect>
+    <circle cx="134" cy="80" r="32" fill="#ffffff14"></circle>
+    <circle cx="20" cy="86" r="18" fill="#ffffff10"></circle>
+    <g transform="translate(16,38) scale(2.6)" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity=".92"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></g>
+    <text x="14" y="23" font-family="Georgia,serif" font-size="13" font-weight="700" fill="#fff">Sirona</text>
+  </svg></div>
+          <div style="font-size:11px;font-weight:700;color:var(--mut);text-transform:uppercase;margin-top:6px">Sirona</div>
+          <b style="display:block;margin-top:2px;cursor:pointer" onclick="openProduct('p5')">Reusable Medical Grade Menstrual Cup</b>
+          
+          
+          <select style="margin:6px 0;padding:6px 8px;font-size:11.5px;border-radius:9px" onchange="stSelectVariant('p5',this.selectedIndex)">
+            <option value="0" selected="">Medium Cup (220 TACO)</option><option value="1">Large Cup (230 TACO)</option>
+          </select>
+
+          <div class="pr" style="margin-top:4px">
+            <b> 220 TACO</b>
+            <del>320 TACO</del>
+            
+          </div>
+        </div>
+
+        <div style="margin-top:8px">
+          
+          <button class="btn s" style="margin:0;padding:9px;font-size:12.5px" onclick="stAdd('p5',0)">Add to cart</button>
+        </div>
+      </div>
+      <div class="pcard">
+        <div>
+          <div class="pimg" onclick="openProduct('p6')"><svg viewBox="0 0 160 100" width="100%" height="100" preserveAspectRatio="xMidYMid slice" style="display:block">
+    <defs><lineargradient id="gp6" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c9772e"></stop><stop offset="1" stop-color="#a56226"></stop></lineargradient></defs>
+    <rect width="160" height="100" fill="url(#gp6)"></rect>
+    <rect width="160" height="36" fill="#ffffff22"></rect>
+    <circle cx="134" cy="80" r="32" fill="#ffffff14"></circle>
+    <circle cx="20" cy="86" r="18" fill="#ffffff10"></circle>
+    <g transform="translate(16,38) scale(2.6)" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity=".92"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></g>
+    <text x="14" y="23" font-family="Georgia,serif" font-size="13" font-weight="700" fill="#fff">Pee Safe</text>
+  </svg></div>
+          <div style="font-size:11px;font-weight:700;color:var(--mut);text-transform:uppercase;margin-top:6px">Pee Safe</div>
+          <b style="display:block;margin-top:2px;cursor:pointer" onclick="openProduct('p6')">Silicone Cup with Microwave Sterilizer</b>
+          
+          
+          <select style="margin:6px 0;padding:6px 8px;font-size:11.5px;border-radius:9px" onchange="stSelectVariant('p6',this.selectedIndex)">
+            <option value="0" selected="">Complete Kit (260 TACO)</option><option value="1">Sterilizer (110 TACO)</option>
+          </select>
+
+          <div class="pr" style="margin-top:4px">
+            <b> 260 TACO</b>
+            <del>360 TACO</del>
+            
+          </div>
+        </div>
+
+        <div style="margin-top:8px">
+          
+          <button class="btn s" style="margin:0;padding:9px;font-size:12.5px" onclick="stAdd('p6',0)">Add to cart</button>
+        </div>
+      </div>
+      <div class="pcard">
+        <div>
+          <div class="pimg" onclick="openProduct('p7')"><svg viewBox="0 0 160 100" width="100%" height="100" preserveAspectRatio="xMidYMid slice" style="display:block">
+    <defs><lineargradient id="gp7" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6b1f4f"></stop><stop offset="1" stop-color="#581941"></stop></lineargradient></defs>
+    <rect width="160" height="100" fill="url(#gp7)"></rect>
+    <rect width="160" height="36" fill="#ffffff22"></rect>
+    <circle cx="134" cy="80" r="32" fill="#ffffff14"></circle>
+    <circle cx="20" cy="86" r="18" fill="#ffffff10"></circle>
+    <g transform="translate(16,38) scale(2.6)" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity=".92"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></g>
+    <text x="14" y="23" font-family="Georgia,serif" font-size="13" font-weight="700" fill="#fff">Plush</text>
+  </svg></div>
+          <div style="font-size:11px;font-weight:700;color:var(--mut);text-transform:uppercase;margin-top:6px">Plush</div>
+          <b style="display:block;margin-top:2px;cursor:pointer" onclick="openProduct('p7')">Pure Organic Cotton Tampons</b>
+          
+          
+          <select style="margin:6px 0;padding:6px 8px;font-size:11.5px;border-radius:9px" onchange="stSelectVariant('p7',this.selectedIndex)">
+            <option value="0" selected="">16 Tampons (150 TACO)</option><option value="1">32 Tampons (280 TACO)</option>
+          </select>
+
+          <div class="pr" style="margin-top:4px">
+            <b> 150 TACO</b>
+            <del>190 TACO</del>
+            
+          </div>
+        </div>
+
+        <div style="margin-top:8px">
+          
+          <button class="btn s" style="margin:0;padding:9px;font-size:12.5px" onclick="stAdd('p7',0)">Add to cart</button>
+        </div>
+      </div>
+      <div class="pcard">
+        <div>
+          <div class="pimg" onclick="openProduct('p8')"><svg viewBox="0 0 160 100" width="100%" height="100" preserveAspectRatio="xMidYMid slice" style="display:block">
+    <defs><lineargradient id="gp8" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c9772e"></stop><stop offset="1" stop-color="#a56226"></stop></lineargradient></defs>
+    <rect width="160" height="100" fill="url(#gp8)"></rect>
+    <rect width="160" height="36" fill="#ffffff22"></rect>
+    <circle cx="134" cy="80" r="32" fill="#ffffff14"></circle>
+    <circle cx="20" cy="86" r="18" fill="#ffffff10"></circle>
+    <g transform="translate(16,38) scale(2.6)" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity=".92"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"></path><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path></g>
+    <text x="14" y="23" font-family="Georgia,serif" font-size="13" font-weight="700" fill="#fff">Pee Safe</text>
+  </svg></div>
+          <div style="font-size:11px;font-weight:700;color:var(--mut);text-transform:uppercase;margin-top:6px">Pee Safe</div>
+          <b style="display:block;margin-top:2px;cursor:pointer" onclick="openProduct('p8')">Herbal Neem &amp; Aloe Vera Pads</b>
+          
+          
+          <select style="margin:6px 0;padding:6px 8px;font-size:11.5px;border-radius:9px" onchange="stSelectVariant('p8',this.selectedIndex)">
+            <option value="0" selected="">10 Pads (95 TACO)</option><option value="1">30 Pads (270 TACO)</option>
+          </select>
+
+          <div class="pr" style="margin-top:4px">
+            <b> 95 TACO</b>
+            <del>120 TACO</del>
+            
+          </div>
+        </div>
+
+        <div style="margin-top:8px">
+          
+          <button class="btn s" style="margin:0;padding:9px;font-size:12.5px" onclick="stAdd('p8',0)">Add to cart</button>
+        </div>
+      </div>
+      <div class="pcard">
+        <div>
+          <div class="pimg" onclick="openProduct('p9')"><svg viewBox="0 0 160 100" width="100%" height="100" preserveAspectRatio="xMidYMid slice" style="display:block">
+    <defs><lineargradient id="gp9" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b84460"></stop><stop offset="1" stop-color="#97384f"></stop></lineargradient></defs>
+    <rect width="160" height="100" fill="url(#gp9)"></rect>
+    <rect width="160" height="36" fill="#ffffff22"></rect>
+    <circle cx="134" cy="80" r="32" fill="#ffffff14"></circle>
+    <circle cx="20" cy="86" r="18" fill="#ffffff10"></circle>
+    <g transform="translate(16,38) scale(2.6)" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity=".92"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></g>
+    <text x="14" y="23" font-family="Georgia,serif" font-size="13" font-weight="700" fill="#fff">Nua</text>
+  </svg></div>
+          <div style="font-size:11px;font-weight:700;color:var(--mut);text-transform:uppercase;margin-top:6px">Nua</div>
+          <b style="display:block;margin-top:2px;cursor:pointer" onclick="openProduct('p9')">Cramp Comfort Self-Heating Patches</b>
+          
+          
+          <select style="margin:6px 0;padding:6px 8px;font-size:11.5px;border-radius:9px" onchange="stSelectVariant('p9',this.selectedIndex)">
+            <option value="0" selected="">3 Patches (120 TACO)</option><option value="1">6 Patches (220 TACO)</option>
+          </select>
+
+          <div class="pr" style="margin-top:4px">
+            <b> 120 TACO</b>
+            <del>160 TACO</del>
+            
+          </div>
+        </div>
+
+        <div style="margin-top:8px">
+          
+          <button class="btn s" style="margin:0;padding:9px;font-size:12.5px" onclick="stAdd('p9',0)">Add to cart</button>
+        </div>
+      </div></div>
+  <div class="cartbar" id="stCartBar" style="display:none">
+    <div><b id="stCartCount" style="font-size:13px"></b><div style="font-size:12px;color:var(--mut)" id="stCartTot"></div></div>
+    <button onclick="openCart()">View cart</button>
+  </div>
+  <h2>My orders</h2>
+  <div class="card" id="stOrders"><div class="empty">No orders yet.<br>Redeem your TACO points above!</div></div>
+  <p class="note" style="padding:0 4px 8px">Curator shop demo. Orders are paid from your TACO Points wallet balance.</p>
+</div>
+
+<!-- HEALTH REPORT -->
+<div class="page" id="pg-health">
+  <div class="head"><button class="back" onclick="goBack()" data-i="back" aria-label="Back"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></button><h2>Health Report</h2></div>
+
+  <div class="card pad" id="hrEmpty" style="display: block; text-align: center;">
+    <div style="width:56px;height:56px;border-radius:50%;background:var(--plum-l);color:#8a3a68;display:flex;align-items:center;justify-content:center;margin:4px auto 14px" data-i="report" data-s="26"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3" width="12" height="18" rx="2"></rect><rect x="9" y="1" width="6" height="4" rx="1"></rect><line x1="8" y1="9" x2="16" y2="9"></line><line x1="8" y1="13" x2="16" y2="13"></line><line x1="8" y1="17" x2="12" y2="17"></line></svg></div>
+    <h2 style="margin-top:0">No report yet</h2>
+    <p style="font-size:13px;color:var(--mut);line-height:1.6;margin-bottom:16px">Book a sample collection first. Your health report appears here once your sample has been processed in the lab.</p>
+    <button class="btn p" onclick="goTo('book')">Book a collection</button>
+  </div>
+
+  <div class="card pad" id="hrPending" style="display:none;text-align:center">
+    <div style="width:56px;height:56px;border-radius:50%;background:var(--peach);color:#8a4a1f;display:flex;align-items:center;justify-content:center;margin:4px auto 14px" data-i="clock" data-s="26"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+    <h2 style="margin-top:0">Your sample is being processed</h2>
+    <p style="font-size:13px;color:var(--mut);line-height:1.6;margin-bottom:16px">Lab processing usually takes 5–7 working days after collection. We'll show your results here once they're ready.</p>
+    <button class="btn s" onclick="hrSimulate()">Demo: simulate report ready</button>
+  </div>
+
+  <div id="hrMain" style="display:none">
+    <div class="plan" id="hrHero"></div>
+    <h2>Vitamins &amp; minerals</h2>
+    <div class="card" id="hrVit"></div>
+    <h2>General health markers</h2>
+    <div class="card" id="hrGen"></div>
+    <h2>Hormone balance</h2>
+    <div class="card" id="hrHorm"></div>
+    <p class="note" style="padding:0 4px 8px">Extracted from your menstrual sample for wellness awareness only. Please see a physician regarding any flagged indicators.</p>
+  </div>
+</div>
+
+<!-- REGISTER -->
+<div class="page active" id="pg-register">
+  <div class="auth-brand"><div class="auth-mark" aria-hidden="true">☾</div><h1 class="serif">Luna</h1><p>Your monthly care companion<br>and curator sanctuary</p></div>
+  <div class="card pad">
+    <h2 id="authTitle" style="margin-top:0">Create your account</h2>
+    <p id="authIntro" class="note" style="margin:0 0 16px">Start with your account to access your personal Luna space.</p>
+    <div class="f" id="authNameField" style="display: block;"><label for="regName">Full name</label><input id="regName" placeholder="Your name" autocomplete="name"></div>
+    <div class="f" id="authLocationField" style="display: block;"><label for="regLocation">Location</label><input id="regLocation" placeholder="City or area" autocomplete="address-level2"></div>
+    <div class="f"><label for="regEmail">Email</label><input type="email" id="regEmail" placeholder="you@email.com" autocomplete="email"></div>
+    <div class="f" id="authPasswordField" style="display: block;"><label for="regPassword">Password</label><input type="password" id="regPassword" placeholder="At least 8 characters" autocomplete="new-password" minlength="8"></div>
+    <div class="f" id="authConfirmField" style="display: block;"><label for="regConfirm">Confirm password</label><input type="password" id="regConfirm" placeholder="Re-enter your password" autocomplete="new-password"></div>
+    <button class="btn p" id="authSubmit" onclick="submitAccount()">Create account</button>
+    <button class="auth-toggle" id="authToggle" onclick="toggleAuth()" style="display: block;">Already have an account? Sign in</button>
+    <p class="auth-foot">This standalone demo saves your account and app data only in this browser on this device. It does not connect to a server or provide production-grade account security.</p>
+  </div>
+</div>
+
+<!-- BOOK -->
+<div class="page" id="pg-book">
+  <div class="head"><button class="back" onclick="goBack()" data-i="back"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></button><h2>Book a collection</h2></div>
+  <div class="card pad">
+    <p style="font-size:13px;color:var(--mut);margin-bottom:14px;line-height:1.5">Choose how many vials to donate and pick your preferred visit time.</p>
+    
+    <label>Vials to donate &amp; TACO points reward</label>
+    <div class="vial-grid">
+      <div class="vial-btn" id="vb-1" onclick="pickVials(1)"><b>1 Vial</b><small>+20 TACO</small></div>
+      <div class="vial-btn sel" id="vb-2" onclick="pickVials(2)"><b>2 Vials</b><small>+55 TACO 🔥</small></div>
+      <div class="vial-btn" id="vb-3" onclick="pickVials(3)"><b>3 Vials</b><small>+80 TACO ⭐</small></div>
+    </div>
+    <div class="alert" style="margin-bottom:14px;font-size:12px;background:var(--petal);color:var(--mul)" id="vialPerkMsg">
+      ✨ <b>Curator Benefit:</b> Donating 2 Vials earns <b>55 TACO</b> (+15 bonus included)!
+    </div>
+
+    <div class="f"><label for="bookDate">Date</label><input type="date" id="bookDate" min="2026-10-22"></div>
+    <div class="f"><label for="bookTime">Time</label><input type="time" id="bookTime" value="10:30"></div>
+    <button class="btn p" onclick="saveBooking()">Confirm booking</button>
+  </div>
+</div>
+
+<!-- PRESERVE -->
+<div class="page" id="pg-preserve">
+  <div class="head"><button class="back" onclick="goBack()" data-i="back"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></button><h2>Stem cells</h2></div>
+  <div class="plan">
+    <svg style="position:absolute;right:-30px;top:-30px;opacity:.9" width="130" height="130" viewBox="0 0 170 170"><circle cx="95" cy="85" r="60" fill="#8a3a68"></circle></svg>
+    <small>Menstrual mesenchymal stem cell preservation</small>
+    <div class="price">1,000 TACO</div><small>or ₹5,000 demo / year · cancel anytime</small>
+  </div>
+  <div class="card">
+    <div class="chk"><i data-i="check" data-s="18"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></i>Cryogenic storage for up to 25 years</div>
+    <div class="chk"><i data-i="check" data-s="18"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></i>At-home temperature-controlled kit</div>
+    <div class="chk"><i data-i="check" data-s="18"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></i>Processed in cGMP certified clinical lab</div>
+    <div class="chk"><i data-i="check" data-s="18"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></i>Earn 80 TACO bonus per preservation session</div>
+  </div>
+  <button class="btn p" onclick="openPay()">Subscribe for 1,000 TACO / year</button>
+  <button class="btn s" onclick="goTo('book')">Book a collection first</button>
+</div>
+
+<!-- REMINDERS -->
+<div class="page" id="pg-remind">
+  <div class="head"><h2>Reminders</h2></div>
+  <div class="card pad">
+    <div class="f"><label for="remTitle">What should we remind you of?</label><input id="remTitle" placeholder="e.g. Iron tablet or sample kit"></div>
+    <div class="f"><label for="remDatetime">Date and time</label><input type="datetime-local" id="remDatetime"></div>
+    <div class="f"><label for="remNote">Note (optional)</label><textarea id="remNote" placeholder="Any extra details"></textarea></div>
+    <div class="f"><label>Repeat</label><div class="pills">
+      <span class="pill sel" data-r="none" onclick="pick(this)">None</span><span class="pill" data-r="daily" onclick="pick(this)">Daily</span><span class="pill" data-r="weekly" onclick="pick(this)">Weekly</span><span class="pill" data-r="monthly" onclick="pick(this)">Monthly</span></div></div>
+    <button class="btn p" onclick="addReminder()">Add reminder</button>
+  </div>
+  <h2>Upcoming</h2>
+  <div class="card" id="remList"><div class="empty">No reminders yet.<br>Add your first one above.</div></div>
+</div>
+
+<!-- PROFILE & WALLET -->
+<div class="page" id="pg-profile">
+  <div class="head"><h2>Profile &amp; TACO</h2></div>
+  <div class="seg"><button class="on" id="pt-prof" onclick="pTabSet('prof')"><span data-i="user" data-s="16"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></span>Profile</button><button id="pt-wal" onclick="pTabSet('wal')"><span></span>TACO Wallet</button></div>
+  <div id="tabProf">
+  <div class="card pad" style="text-align:center">
+    <div class="avatar" id="pAv">?</div>
+    <h2 id="pName" style="margin:0">Not registered</h2>
+    <div id="pLoc" style="font-size:13px;color:var(--mut);margin-top:3px">—</div>
+  </div>
+  <div class="card">
+    <div class="kv" id="pEmailRow" style="display:none"><span>Email</span><span id="pEmail"></span></div>
+    <div class="kv"><span>Curator Membership</span><span id="pMem">—</span></div>
+    <div class="kv"><span>TACO Balance</span><span id="pTacoRow" style="color:var(--mul);font-weight:700">0 TACO</span></div>
+  </div>
+  <h2>My bookings</h2>
+  <div class="card" id="bookList"><div class="empty">No bookings yet</div></div>
+  <button class="btn s" onclick="openProfileEdit()" style="margin-top:10px">Edit profile info</button>
+  </div>
+  <div id="tabWal" style="display:none">
+    <div class="card pad" id="wLock" style="text-align: center; display: block;"><div class="empty" style="padding:6px 6px 14px">Create your profile to start receiving TACO Points in your wallet.</div><button class="btn p" onclick="goTo('register')">Create profile</button></div>
+    <div id="wMain" style="display: none;">
+      <!-- Balance Card -->
+      <div class="plan"><svg style="position:absolute;right:-30px;top:-30px;opacity:.9" width="130" height="130" viewBox="0 0 170 170"><circle cx="95" cy="85" r="60" fill="#8a3a68"></circle></svg><small>Luna TACO wallet balance</small><div class="price" id="wBal"> 0 TACO</div><small id="wPend">All rewards confirmed &amp; credited</small></div>
+      
+      <!-- Cute & Attractive Description Card -->
+      <div class="cute-card">
+        <span class="kicker">Curator Rewards ✨</span>
+        <h3>What are TACO Points? </h3>
+        <div class="sub">Tradable Access to Curator Offerings</div>
+        <p>TACO points are Luna's dedicated community reward currency! When you donate research vials or menstrual stem cell samples, our clinical lab (Num2Bio) credits your curator account. You can redeem them in the Luna Shop for organic pads, gentle VWash, reusable menstrual cups, and personal care essentials.</p>
+        
+        <b style="font-size:12px;color:var(--mul);display:block;margin-bottom:4px">Extra Benefit per Vial Donated:</b>
+        <div class="v-tier">
+          <div class="vt-row"><span>🧪 1 Vial Donated</span><b>20 TACO</b></div>
+          <div class="vt-row"><span>🧪 2 Vials Donated</span><b>55 TACO <span class="v-badge">+15 bonus!</span></b></div>
+          <div class="vt-row"><span>🧪 3 Vials Donated</span><b>80 TACO <span class="v-badge">+20 bonus!</span></b></div>
+        </div>
+
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:10px;border-top:1px solid var(--line);font-size:12px">
+          <span>Test vial calculator:</span>
+          <div style="display:flex;gap:6px">
+            <button class="pill sel" style="padding:4px 10px;font-size:11px" onclick="calcVials(1,this)">1</button>
+            <button class="pill" style="padding:4px 10px;font-size:11px" onclick="calcVials(2,this)">2</button>
+            <button class="pill" style="padding:4px 10px;font-size:11px" onclick="calcVials(3,this)">3</button>
+          </div>
+        </div>
+        <div id="calcResult" style="font-size:12px;color:var(--ok);font-weight:700;text-align:right;margin-top:6px">= 20 TACO Points unlocked!</div>
+      </div>
+
+      <div style="display:flex;gap:10px"><button class="btn p" style="margin:0" onclick="wF('don')">Log a donation</button><button class="btn s" style="margin:0" onclick="showNav('store')">Visit Luna Shop</button></div>
+      
+      <!-- Donation form -->
+      <div class="card pad" id="wFd" style="display:none;margin-top:14px"><h2 style="margin-top:0">Log a blood / vial donation</h2>
+        <div class="f"><label for="wdC">Donation center</label><input id="wdC" placeholder="e.g. Luna Wellness Center · Bengaluru"></div>
+        <div class="f"><label for="wdD">Date of donation</label><input type="date" id="wdD" max="2026-10-22"></div>
+        <div class="f"><label>Number of vials donated</label>
+          <div class="vial-grid">
+            <div class="vial-btn" id="wdv-1" onclick="wDonVial(1)"><b>1 Vial</b><small>+20 TACO</small></div>
+            <div class="vial-btn sel" id="wdv-2" onclick="wDonVial(2)"><b>2 Vials</b><small>+55 TACO</small></div>
+            <div class="vial-btn" id="wdv-3" onclick="wDonVial(3)"><b>3 Vials</b><small>+80 TACO</small></div>
+          </div>
+        </div>
+        <button class="btn p" onclick="wDon()">Submit donation &amp; claim TACO</button>
+        <p class="note">Your TACO reward is credited once the blood sample arrives at the center and Num2Bio confirms it.</p>
+      </div>
+
+      <h2>Donations &amp; Vials</h2><div class="card" id="wDonList"><div class="empty">No donations yet.<br>Tap Log a donation after giving sample vials.</div></div>
+      <h2>TACO Transactions</h2><div class="card" id="wTxList"><div class="empty">No transactions yet</div></div>
+      <p class="note" style="padding:0 4px 8px">Demo: simulation button on each donation allows you to simulate Num2Bio lab confirmation and receive instant TACO Points.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SETTINGS -->
+<div class="page" id="pg-settings">
+  <div class="head"><h2>Settings</h2></div>
+  <div class="card">
+    <div class="kv"><span>Theme</span><span>Blush Velvet</span></div>
+    <div class="kv"><span>Currency</span><span>TACO Points (Tradable Access to Curator Offerings)</span></div>
+    <div class="kv"><span>Version</span><span>Luna Pro 3.0 · TACO Edition</span></div>
+    <div class="kv"><span>Clinical Partner</span><span>Num2Bio Certified Labs</span></div>
+  </div>
+  <button class="btn s" onclick="goTo('book')">Book a new collection</button>
+  <button class="btn d" onclick="logout()">Reset demo state</button>
+</div>
+
+</div>
+<nav>
+  <button class="on" id="n-home" onclick="showNav('home')"><span class="pi" data-i="home"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></span>Home</button>
+  <button id="n-remind" onclick="showNav('remind')"><span class="pi" data-i="bell"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></span>Reminders</button>
+  <button id="n-store" onclick="showNav('store')"><span class="pi"><span data-i="bag"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></span><span class="badge-count" id="navCartCount" style="display:none">0</span></span>Luna Shop</button>
+  <button id="n-profile" onclick="showNav('profile')"><span class="pi" data-i="user"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></span>Profile</button>
+  <button id="n-settings" onclick="showNav('settings')"><span class="pi" data-i="sliders"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg></span>Settings</button>
+</nav>
+</div>
+
+<!-- PAYMENT SHEET (demo) -->
+<div class="ov" id="ov" onclick="closePay()"></div>
+<div class="sheet" id="sheet">
+  <div class="grab"></div>
+  <div id="payMain">
+    <div class="sh-top"><div class="lg" data-i="moon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></div><div><b>Luna Wellness</b><small>Secure stem cell checkout</small></div><div class="amt">1,000 TACO</div></div>
+    <div class="demo">Curator demo checkout. You can subscribe with TACO Points or test UPI.</div>
+    <div class="m sel" onclick="pm(this)"><div class="m-h"><span></span>Pay with TACO Points (1,000 TACO)<span class="rd"></span></div><div class="m-b"><p>Deducts 1,000 TACO points from your Luna wallet balance.</p></div></div>
+    <div class="m" onclick="pm(this)"><div class="m-h"><span data-i="phone2"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg></span>UPI / RuPay (₹5,000 demo)<span class="rd"></span></div><div class="m-b"><p>Standard UPI gateway simulation.</p></div></div>
+    <button class="btn p" onclick="doPay()">Confirm subscription</button>
+  </div>
+  <div class="st" id="payBusy"><div class="spin"></div><b>Securing bio-preservation kit…</b><p style="font-size:13px;color:var(--mut);margin-top:6px">Please don't close this screen</p></div>
+  <div class="st" id="payDone"><div class="ok" data-i="check" data-s="30"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div><h2 style="margin:0 0 6px">Subscription Confirmed!</h2><p style="font-size:13px;color:var(--mut);line-height:1.6;margin-bottom:18px">Your annual stem cell reservation is active with Num2Bio cGMP bio-banking.</p><button class="btn p" onclick="finishPay()">Done</button></div>
+</div>
+
+<!-- CART SHEET -->
+<div class="ov" id="ov2" onclick="closeCart()"></div>
+<div class="sheet" id="sheet2">
+  <div class="grab"></div>
+  <div class="sh-top"><div class="lg" data-i="bag"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div><div><b>Your cart</b><small id="cartBalNote">Wallet balance: 0 TACO</small></div><div class="amt" id="cartTot">0 TACO</div></div>
+  <div id="cartList"><div class="empty">Your cart is empty</div></div>
+  <button class="btn p" onclick="stCheckout()">Pay with TACO points</button>
+  <p class="note" style="text-align:center" id="checkoutNote">Curator redemption. Paid from your TACO balance.</p>
+</div>
+
+<!-- PRODUCT DETAIL SHEET -->
+<div class="ov" id="ov3" onclick="closeProduct()"></div>
+<div class="sheet" id="sheet3">
+  <div class="grab"></div>
+  <button class="back" style="position:absolute;top:14px;right:18px;z-index:2;background:var(--bg)" onclick="closeProduct()" data-i="x" aria-label="Close"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+  <div id="pd3Art"></div>
+  <div style="padding-top:14px">
+    <div id="pd3Brand" style="font-size:12px;text-transform:uppercase;letter-spacing:.4px;color:var(--mul);font-weight:700"></div>
+    <h2 id="pd3Name" style="margin:3px 0 6px"></h2>
+    <div id="pd3Rating" style="font-size:13px;color:var(--mut);margin-bottom:10px"></div>
+    <div id="pd3Variants" style="margin-bottom:12px"></div>
+    <div class="pr" id="pd3Price" style="margin-bottom:12px"></div>
+    <p id="pd3Desc" style="font-size:13px;color:var(--mut);line-height:1.6;margin-bottom:14px"></p>
+    <div id="pd3Features" style="margin-bottom:16px"></div>
+    <div id="pd3Add" style="margin-bottom:22px"></div>
+    <h2>Curator reviews</h2>
+    <div id="pd3Reviews"></div>
+  </div>
+</div>
+
+<script>
+const KEY='luna_taco_app_v5';
+const ACCOUNT_KEY='luna_local_account_v1';
+let user=null;
+let bookings=[],reminders=[],plan=null,rep='none',hist=[],payOpen=false,authMode='signup';
+let bookVialsSelected=2,wDonVialsSelected=2;
+
+const P={
+  home:'<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',
+  bell:'<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>',
+  user:'<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+  sliders:'<line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>',
+  back:'<line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>',
+  calendar:'<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
+  userplus:'<path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/>',
+  shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+  droplet:'<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>',
+  phone:'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>',
+  pin:'<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
+  clock:'<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+  x:'<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>',
+  check:'<polyline points="20 6 9 17 4 12"/>',
+  phone2:'<rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/>',
+  card:'<rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/>',
+  bank:'<path d="M3 21h18M5 21V10m4 11V10m6 11V10m4 11V10M2 10l10-7 10 7"/>',
+  wallet:'<path d="M20 12V8H6a2 2 0 0 1 0-4h12v4"/><path d="M4 6v12a2 2 0 0 0 2 2h14v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/>',
+  moon:'<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>',
+  chl:'<polyline points="15 18 9 12 15 6"/>',
+  chr:'<polyline points="9 18 15 12 9 6"/>',
+  leaf:'<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>',
+  bag:'<path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>',
+  report:'<rect x="6" y="3" width="12" height="18" rx="2"/><rect x="9" y="1" width="6" height="4" rx="1"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="12" y2="17"/>',
+  down:'<line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/>',
+  up:'<line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/>'
+};
+
+const ico=(n,s=22)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${P[n]||P.home}</svg>`;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const taco=n=>Number(n).toLocaleString('en-IN')+' TACO';
+const tacoBadge=n=>' '+taco(n);
+
+// Vial tier rewards: 1 vial = 20, 2 vials = 55 (+15 bonus), 3 vials = 80 (+20 bonus)
+const getVialReward=v=>v<=1?20:v===2?55:80;
+
+function save(){try{localStorage.setItem(KEY,JSON.stringify({user,bookings,reminders,plan,cyc,wal,store,health}))}catch(e){}}
+function load(){
+  try{
+    const s=JSON.parse(localStorage.getItem(KEY)||'null');
+    if(s){
+      if(s.user!==undefined)user=s.user;
+      if(s.bookings)bookings=s.bookings;
+      if(s.reminders)reminders=s.reminders;
+      if(s.plan)plan=s.plan;
+      if(s.cyc)cyc=s.cyc;
+      if(s.wal)wal=s.wal;
+      if(s.store)store=s.store;
+      if(s.health)health=s.health;
+    }
+  }catch(e){}
+}
+
+function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),2600)}
+function sw(p){const o=document.querySelector('.page.active'),n=$('pg-'+p);if(!n||o===n)return;o.classList.remove('active');n.classList.add('active');n.scrollTop=0}
+function showNav(p){document.querySelectorAll('nav button').forEach(b=>b.classList.remove('on'));const b=$('n-'+p);if(b)b.classList.add('on');hist=[];sw(p)}
+function goTo(p){const c=document.querySelector('.page.active');hist.push(c.id.slice(3));sw(p)}
+function goBack(){hist.length?sw(hist.pop()):showNav('home')}
+function pick(el){document.querySelectorAll('.pill').forEach(p=>p.classList.remove('sel'));el.classList.add('sel');rep=el.dataset.r}
+const fmt=t=>{const[h,m]=t.split(':').map(Number);return(h%12||12)+':'+String(m).padStart(2,'0')+(h<12?' AM':' PM')};
+
+function render(){
+  document.querySelectorAll('[data-i]').forEach(e=>e.innerHTML=ico(e.dataset.i,+e.dataset.s||22));
+  cyAll();wRender();stRender();hrRender();
+  const h=new Date().getHours();$('greet').textContent=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
+  $('homeTacoBal').textContent=taco(wal.bal);
+  if(user){
+    $('pAv').textContent=user.name[0].toUpperCase();
+    $('pName').textContent=user.name;
+    $('pLoc').textContent=user.loc;
+    $('homeName').textContent='Hi, '+user.name.split(' ')[0];
+    $('regTile').textContent='My profile';
+    $('regSub').textContent=user.name+' · '+user.loc;
+    $('pEmail').textContent=user.email||'';
+    $('pEmailRow').style.display=user.email?'flex':'none';
+    $('pTacoRow').textContent=tacoBadge(wal.bal);
+  } else {
+    $('pAv').textContent='?';$('pName').textContent='Not registered';$('pLoc').textContent='—';$('homeName').textContent='Welcome to Luna';$('regTile').textContent='Create your profile';$('regSub').textContent='Takes less than a minute';$('pEmailRow').style.display='none';
+  }
+  $('pMem').textContent=plan?'Stem Cell Curator (demo)':user?'Active Donor Member':'—';
+  const nb=bookings[bookings.length-1];
+  $('nextTitle').textContent=nb?'Next collection':'No collection booked';
+  $('nextSub').textContent=nb||'Schedule your sample visit · earn up to 80 TACO';
+  $('bookList').innerHTML=bookings.length?bookings.map(b=>`<div class="row"><div class="ic">${ico('calendar',18)}</div><b>${esc(b)}</b></div>`).join(''):'<div class="empty">No bookings yet</div>';
+  $('remList').innerHTML=reminders.length?reminders.map(r=>`<div class="rem"><div class="dot"></div><div><b>${esc(r.title)}</b><small>${esc(r.when)}${esc(r.rl)}</small>${r.note?`<small>${esc(r.note)}</small>`:''}</div><button onclick="delRem(${r.id})" aria-label="Delete">${ico('x',18)}</button></div>`).join(''):'<div class="empty">No reminders yet.<br>Add your first one above.</div>';
+}
+
+async function passwordHash(password,salt){
+  if(!window.crypto||!crypto.subtle)throw new Error('Secure password hashing is unavailable in this browser. Open this file in a current browser.');
+  const bytes=new TextEncoder().encode(salt+password);
+  const digest=await crypto.subtle.digest('SHA-256',bytes);
+  return Array.from(new Uint8Array(digest)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+function authInit(){
+  let account=null;try{account=JSON.parse(localStorage.getItem(ACCOUNT_KEY)||'null')}catch(e){}
+  authMode=account?'signin':'signup';user=null;
+}
+function authRender(){
+  const edit=authMode==='edit',signup=authMode==='signup';
+  $('authTitle').textContent=edit?'Edit your profile':signup?'Create your account':'Welcome back';
+  $('authIntro').textContent=edit?'Update the details on your Luna profile.':signup?'Start with your account to access your personal Luna space.':'Sign in to open your Luna account on this device.';
+  $('authNameField').style.display=(signup||edit)?'block':'none';
+  $('authLocationField').style.display=(signup||edit)?'block':'none';
+  $('authPasswordField').style.display=edit?'none':'block';
+  $('authConfirmField').style.display=signup?'block':'none';
+  $('authSubmit').textContent=edit?'Save profile':signup?'Create account':'Sign in';
+  $('authToggle').style.display=edit?'none':'block';
+  $('authToggle').textContent=signup?'Already have an account? Sign in':'New to Luna? Create an account';
+  $('regPassword').autocomplete=signup?'new-password':'current-password';
+}
+function toggleAuth(){
+  authMode=authMode==='signup'?'signin':'signup';authRender();
+  $('regPassword').value='';$('regConfirm').value='';
+}
+async function submitAccount(){
+  if(authMode==='edit'){saveUser();return}
+  const email=$('regEmail').value.trim().toLowerCase(),password=$('regPassword').value;
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return toast('Enter a valid email address');
+  if(password.length<8)return toast('Use a password with at least 8 characters');
+  try{
+    if(authMode==='signup'){
+      const name=$('regName').value.trim(),loc=$('regLocation').value.trim();
+      if(!name||!loc)return toast('Add your name and location');
+      if($('regConfirm').value!==password)return toast('Your passwords do not match');
+      if(localStorage.getItem(ACCOUNT_KEY))return toast('An account already exists here. Please sign in.');
+      const salt=Array.from(crypto.getRandomValues(new Uint8Array(16))).map(b=>b.toString(16).padStart(2,'0')).join('');
+      user={name,loc,email};const hash=await passwordHash(password,salt);
+      localStorage.setItem(ACCOUNT_KEY,JSON.stringify({email,salt,hash,user}));
+      save();
+    }else{
+      const account=JSON.parse(localStorage.getItem(ACCOUNT_KEY)||'null');
+      if(!account||account.email!==email)return toast('No matching account found on this device');
+      const hash=await passwordHash(password,account.salt);
+      if(hash!==account.hash)return toast('The email or password is incorrect');
+      user=account.user;load();
+    }
+    authMode='signin';document.querySelector('.app').classList.remove('auth-required');
+    authRender();render();showNav('home');toast('Welcome to Luna');
+  }catch(e){toast(e.message||'Could not open your account')}
+}
+function openProfileEdit(){
+  authMode='edit';authRender();
+  $('regName').value=user?.name||'';$('regLocation').value=user?.loc||'';$('regEmail').value=user?.email||'';
+  goTo('register');
+}
+function saveUser(){
+  const n=$('regName').value.trim(),l=$('regLocation').value.trim();
+  if(!n||!l)return toast('Please add your name and location');
+  user={name:n,loc:l,email:$('regEmail').value.trim()};
+  save();render();toast('Profile updated');goBack();
+}
+
+function pickVials(v){
+  bookVialsSelected=v;
+  [1,2,3].forEach(i=>$('vb-'+i).classList.toggle('sel',i===v));
+  const r=getVialReward(v);
+  const bonus=v===2?' (+15 bonus included!)':v===3?' (+20 maximum bonus included!)':'';
+  $('vialPerkMsg').innerHTML=`✨ <b>Curator Benefit:</b> Donating ${v} ${v===1?'Vial':'Vials'} earns <b>${r} TACO</b>${bonus}`;
+}
+
+function saveBooking(){
+  const d=$('bookDate').value,t=$('bookTime').value;
+  if(!d||!t)return toast('Please pick a date and time'); if(d<ds(new Date()))return toast('Choose today or a future date');
+  const l=new Date(d+'T12:00').toLocaleDateString('en-IN',{weekday:'short',month:'short',day:'numeric'})+' at '+fmt(t)+` (${bookVialsSelected} ${bookVialsSelected===1?'Vial':'Vials'})`;
+  bookings.push(l);health.done=false;health.date='';
+  save();render();
+  toast('Booked: '+l+' · +'+getVialReward(bookVialsSelected)+' TACO pending');
+  goBack();
+}
+
+function addReminder(){
+  const t=$('remTitle').value.trim(),v=$('remDatetime').value;
+  if(!t||!v)return toast('Add a title and a date and time');
+  const d=new Date(v);
+  reminders.push({id:Date.now(),title:t,note:$('remNote').value.trim(),when:d.toLocaleDateString('en-IN',{weekday:'short',month:'short',day:'numeric'})+' at '+fmt(String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')),rl:rep==='none'?'':' · '+rep[0].toUpperCase()+rep.slice(1)});
+  save();['remTitle','remDatetime','remNote'].forEach(i=>$(i).value='');
+  pick(document.querySelector('.pill[data-r=none]'));render();toast('Reminder added');
+}
+function delRem(id){reminders=reminders.filter(r=>r.id!==id);save();render();toast('Reminder removed')}
+
+function logout(){
+  user=null;bookings=[];reminders=[];plan=null;cyc=newCyc();wal=newWal();store=newStore();health=newHealth();
+  save();document.querySelector('.app').classList.add('auth-required');hist=[];authInit();authRender();sw('register');toast('You have been signed out');
+}
+
+/* demo payment sheet */
+function openPay(){$('payMain').style.display='block';$('payBusy').style.display=$('payDone').style.display='none';$('ov').classList.add('on');$('sheet').classList.add('on');payOpen=true}
+function closePay(){$('ov').classList.remove('on');$('sheet').classList.remove('on');payOpen=false}
+function pm(el){document.querySelectorAll('.m').forEach(m=>m.classList.remove('sel'));el.classList.add('sel')}
+function doPay(){
+  if(!user)return toast('Create an account or sign in first');
+  const method=document.querySelector('.m.sel');
+  const usingTaco=!!method&&!method.querySelector('[data-i=phone2]');
+  if(usingTaco&&wal.bal<1000)return toast('You need 1,000 TACO points for this plan');
+  $('payMain').style.display='none';$('payBusy').style.display='block';
+  setTimeout(()=>{$('payBusy').style.display='none';$('payDone').style.display='block'},1400);
+}
+function finishPay(){
+  const method=document.querySelector('.m.sel'); const usingTaco=!!method&&!method.querySelector('[data-i=phone2]'); plan={active:true,method:usingTaco?'TACO':'UPI',date:todayL()};
+  if(plan.method==='TACO'){wal.bal-=1000;wal.tx.push({id:Date.now(),k:'d',a:1000,t:'Stem Cell Annual Preservation Plan',d:todayL()})}
+  save();render();closePay();toast('Stem Cell Preservation Activated 🛡️✨');
+}
+
+/* ===== WALLET & TACO POINTS ===== */
+const newWal=()=>({bal:0,don:[],tx:[]});
+
+let wal=newWal(),pTab='prof',wForm='';
+const STG=['Sample vials on the way to lab','Received at center · awaiting Num2Bio verification','Confirmed by Num2Bio · TACO Points credited!'];
+const todayL=()=>new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+
+function pTabSet(t){
+  pTab=t;$('tabProf').style.display=t==='prof'?'block':'none';$('tabWal').style.display=t==='wal'?'block':'none';
+  $('pt-prof').classList.toggle('on',t==='prof');$('pt-wal').classList.toggle('on',t==='wal');$('pg-profile').scrollTop=0;
+}
+function wF(f){wForm=wForm===f?'':f;wRender()}
+
+function wRender(){
+  $('wLock').style.display=user?'none':'block';$('wMain').style.display=user?'block':'none';
+  $('wBal').textContent=tacoBadge(wal.bal);
+  const pending=wal.don.filter(d=>d.s<2).reduce((sum,d)=>sum+(d.r||getVialReward(d.vials||1)),0);
+  $('wPend').textContent=pending?`+${taco(pending)} pending Num2Bio verification`:'All rewards confirmed & credited';
+  $('wFd').style.display=wForm==='don'?'block':'none';
+  $('wdD').max=ds(new Date());if(!$('wdD').value)$('wdD').value=ds(new Date());
+  
+  $('wDonList').innerHTML=wal.don.length?wal.don.slice().reverse().map(d=>`
+    <div class="rem">
+      <div class="dot" style="background:${d.s>1?'var(--ok)':'var(--rose)'}"></div>
+      <div style="flex:1">
+        <b>${esc(d.c)}</b>
+        <small>${esc(d.d)} · <b>${d.vials||1} ${(d.vials||1)===1?'Vial':'Vials'}</b> · +${d.r||getVialReward(d.vials||1)} TACO</small>
+        <div class="stp">${[0,1,2].map(i=>`<i class="${i<=d.s?(d.s>1?'ok':'on'):''}"></i>`).join('')}</div>
+        <small style="margin-top:4px;color:var(--mut)">${STG[d.s]}</small>
+        ${d.s<2?`<button class="btn s" style="width:auto;margin:8px 0 0;padding:8px 12px;font-size:11.5px" onclick="wAdv(${d.id})">Demo: simulate ${d.s===0?'arrival at lab':'Num2Bio confirmation (+TACO)'}</button>`:''}
+      </div>
+    </div>`).join(''):'<div class="empty">No donations yet.<br>Tap Log a donation after giving sample vials.</div>';
+
+  $('wTxList').innerHTML=wal.tx.length?wal.tx.slice().reverse().map(t=>`
+    <div class="row">
+      <div class="ic" style="color:${t.k==='c'?'var(--ok)':'var(--rose)'}">${ico(t.k==='c'?'down':'up',18)}</div>
+      <div><b>${esc(t.t)}</b><small>${esc(t.d)}</small></div>
+      <b style="margin-left:auto;color:${t.k==='c'?'var(--ok)':'var(--ink)'}">${t.k==='c'?'+':'−'}${taco(t.a)}</b>
+    </div>`).join(''):'<div class="empty">No transactions yet</div>';
+}
+
+function wDonVial(v){
+  wDonVialsSelected=v;
+  [1,2,3].forEach(i=>$('wdv-'+i).classList.toggle('sel',i===v));
+}
+
+function wDon(){
+  const c=$('wdC').value.trim(),d=$('wdD').value;
+  if(!c||!d)return toast('Add the center and donation date');
+  if(d>ds(new Date()))return toast('Donation date cannot be in the future');
+  const reward=getVialReward(wDonVialsSelected);
+  wal.don.push({id:Date.now(),c,d:fd(d,{day:'numeric',month:'short',year:'numeric'}),vials:wDonVialsSelected,r:reward,s:0});
+  $('wdC').value='';wForm='';save();wRender();
+  toast(`Donation logged for ${wDonVialsSelected} vials · +${reward} TACO pending`);
+}
+
+function wAdv(id){
+  const d=wal.don.find(x=>x.id===id);if(!d||d.s>1)return;
+  d.s++;
+  if(d.s===2){
+    const reward=d.r||getVialReward(d.vials||1);
+    wal.bal+=reward;
+    wal.tx.push({id:Date.now(),k:'c',a:reward,t:`Vial Donation Reward (${d.vials} ${d.vials===1?'Vial':'Vials'}) · ${d.c.split('·')[0]}`,d:todayL()});
+    toast(`+${taco(reward)} credited to your wallet! 🎉`);
+  } else {
+    toast('Sample vials received at Num2Bio laboratory');
+  }
+  save();render();
+}
+
+function calcVials(v,el){
+  el.parentElement.querySelectorAll('.pill').forEach(p=>p.classList.remove('sel'));
+  el.classList.add('sel');
+  const reward=getVialReward(v);
+  const bonus=v===2?' (+15 bonus) ':v===3?' (+20 bonus) ':' ';
+  $('calcResult').innerHTML=`= <b>${reward} TACO Points</b>${bonus}unlocked!`;
+}
+
+/* ===== HEALTH REPORT ===== */
+const newHealth=()=>({done:false,date:''});
+let health=newHealth();
+const HSTAT={ok:{c:'#bfe3de',t:'Normal'},bl:{c:'#f6d9b0',t:'Borderline'},lo:{c:'#f6c2cb',t:'Attention'}};
+const HEALTH_ITEMS=[
+  {cat:'vit',name:'Vitamin D',val:'22 ng/mL',s:'bl',note:'Slightly below target. Sunlight exposure and fortified nutrition can boost.'},
+  {cat:'vit',name:'Vitamin B12',val:'430 pg/mL',s:'ok',note:'Healthy cellular energy and nerve wellness levels.'},
+  {cat:'vit',name:'Folate (B9)',val:'9.4 ng/mL',s:'ok',note:'Optimal for cell division and red blood cell creation.'},
+  {cat:'vit',name:'Iron (Ferritin)',val:'38 ng/mL',s:'ok',note:'Sufficient iron storage detected after menstruation.'},
+  {cat:'gen',name:'Hemoglobin',val:'12.3 g/dL',s:'ok',note:'Normal range. Oxygen-carrying capacity is stable.'},
+  {cat:'gen',name:'Inflammation Marker (CRP)',val:'0.5 mg/L',s:'ok',note:'Zero systemic inflammatory alerts identified.'},
+  {cat:'gen',name:'Thyroid Indicator',val:'Within range',s:'ok',note:'Balanced metabolic and endocrine indicators.'},
+  {cat:'horm',name:'Estrogen Profile',val:'Typical for phase',s:'ok',note:'Healthy for current cycle tracking phase.'},
+  {cat:'horm',name:'Progesterone Ratio',val:'Steady',s:'ok',note:'Harmonious luteal preparedness detected.'}
+];
+
+function hrRow(it){
+  const st=HSTAT[it.s];
+  return `<div class="hr-item"><div class="dot" style="background:${st.c}"></div><div style="flex:1"><b>${esc(it.name)}</b><small>${esc(it.note)}</small></div><div class="hv"><span class="ph" style="background:${st.c};margin:0">${st.t}</span><small>${esc(it.val)}</small></div></div>`;
+}
+
+function hrRender(){
+  if(!$('pg-health'))return;
+  const hasBooking=bookings.length>0;
+  $('hrEmpty').style.display=!hasBooking?'block':'none';
+  $('hrPending').style.display=hasBooking&&!health.done?'block':'none';
+  $('hrMain').style.display=health.done?'block':'none';
+  const flags=HEALTH_ITEMS.filter(i=>i.s!=='ok').length;
+  $('hrTile').textContent=!hasBooking?'Book a collection first':!health.done?'Processing your sample':flags?flags+' marker'+(flags>1?'s':'')+' to review':'All markers look optimal';
+  if(!health.done)return;
+  $('hrHero').innerHTML=`<svg style="position:absolute;right:-30px;top:-30px;opacity:.9" width="130" height="130" viewBox="0 0 170 170"><circle cx="95" cy="85" r="60" fill="#8a3a68"/></svg><small>Report verified · ${esc(health.date)}</small><div class="price" style="font-size:24px">${flags?flags+' marker'+(flags>1?'s':'')+' to review':'6 Biomarkers Optimal'}</div><small>From your processed menstrual blood sample</small>`;
+  $('hrVit').innerHTML=HEALTH_ITEMS.filter(i=>i.cat==='vit').map(hrRow).join('');
+  $('hrGen').innerHTML=HEALTH_ITEMS.filter(i=>i.cat==='gen').map(hrRow).join('');
+  $('hrHorm').innerHTML=HEALTH_ITEMS.filter(i=>i.cat==='horm').map(hrRow).join('');
+}
+function hrSimulate(){health.done=true;health.date=todayL();save();hrRender();toast('Health report ready')}
+
+/* ===== LUNA STORE & PRODUCTS ===== */
+const newStore=()=>({cart:{},orders:[]});
+
+let store=newStore(),stCat='All';
+
+const PRODUCTS=[
+  {
+    id:'p1',brand:'Plush',name:'Rash-Free Pure Cotton Pads',cat:'Pads',rating:4.8,rv:812,col:'#6b1f4f',icon:'droplet',
+    desc:'Soft, breathable daily pads made from pure cotton to eradicate rashes and chafing.',
+    features:['100% US cotton top-sheet','Rash-free guaranteed','Biodegradable disposal wrappers'],
+    variants:[
+      {name:'Pack of 10 Pads',p:100,mrp:120,label:'10 Pads (100 TACO)'},
+      {name:'Pack of 30 Pads (Saver)',p:280,mrp:360,label:'30 Pads (280 TACO)',badge:'Save 20 TACO'}
+    ],
+    reviews:[{n:'Ananya',r:5,d:'2 weeks ago',t:'Super soft and no rashes even during busy gym days.'},{n:'Priya',r:5,d:'1 month ago',t:'Bought with my vial donation rewards. Great quality!'}]
+  },
+  {
+    id:'p2',brand:'Nua',name:'Ultra-Thin Overnight Pads',cat:'Pads',rating:4.7,rv:1220,col:'#b84460',icon:'moon',
+    desc:'Wide-back contour engineered for heavy-flow nights and side-sleepers without feeling bulky.',
+    features:['Wider back coverage','Zero leaks core','Cottony soft non-chafing surface'],
+    variants:[
+      {name:'Pack of 10 Pads',p:100,mrp:130,label:'10 Pads (100 TACO)'},
+      {name:'Pack of 30 Pads (Saver)',p:280,mrp:380,label:'30 Pads (280 TACO)',badge:'Save 20 TACO'}
+    ],
+    reviews:[{n:'Divya',r:5,d:'10 days ago',t:'The 30-pack saver is so worth the TACO points. Zero leaks!'}]
+  },
+  {
+    id:'p3',brand:'VWash',name:'VWash Plus Expert Intimate Wash',cat:'VWash & Intimate',rating:4.9,rv:1650,col:'#2f7d78',icon:'droplet',
+    desc:'Clinically proven intimate hygiene wash with Sea Buckthorn & Tea Tree Oil. Maintains natural 3.5 pH.',
+    features:['Enriched with Sea Buckthorn & Tea Tree','Paraben & SLS free','Restores natural 3.5 pH barrier'],
+    variants:[
+      {name:'100ml Everyday Bottle',p:130,mrp:160,label:'100ml (130 TACO)'},
+      {name:'200ml Family Saver Pack',p:240,mrp:310,label:'200ml (240 TACO)',badge:'Best Value'}
+    ],
+    reviews:[{n:'Kavita',r:5,d:'3 days ago',t:'Gentle, refreshing, and essential for daily hygiene.'}]
+  },
+  {
+    id:'p4',brand:'VWash',name:'VWash Foaming Wash & Cleansing Wipes',cat:'VWash & Intimate',rating:4.8,rv:420,col:'#2f7d78',icon:'leaf',
+    desc:'Air-light soothing foaming wash paired with 15 refreshing intimate wipes for on-the-go cleanliness.',
+    features:['Pre-foamed gentle pump','15 biodegradable wet wipes included','Chamomile and aloe infused'],
+    variants:[
+      {name:'Foam 150ml + 15 Wipes Duo',p:190,mrp:250,label:'Foam + Wipes (190 TACO)'},
+      {name:'15 Intimate Wipes Only',p:75,mrp:100,label:'15 Wipes (75 TACO)'}
+    ],
+    reviews:[{n:'Sanya',r:5,d:'1 week ago',t:'The wipes are a lifesaver during long office commutes.'}]
+  },
+  {
+    id:'p5',brand:'Sirona',name:'Reusable Medical Grade Menstrual Cup',cat:'Menstrual Cups',rating:4.8,rv:940,col:'#8a3a68',icon:'shield',
+    desc:'100% US-FDA approved medical silicone cup. Up to 8–10 hours of continuous leak-free protection for 5+ years.',
+    features:['100% medical grade silicone','Eco-friendly & reusable for 5 years','Breathable cotton pouch included'],
+    variants:[
+      {name:'Medium (Regular Flow)',p:220,mrp:320,label:'Medium Cup (220 TACO)'},
+      {name:'Large (Heavy Flow)',p:230,mrp:340,label:'Large Cup (230 TACO)'}
+    ],
+    reviews:[{n:'Ritika',r:5,d:'2 weeks ago',t:'Made the switch 4 months ago. Life changing and zero trash!'}]
+  },
+  {
+    id:'p6',brand:'Pee Safe',name:'Silicone Cup with Microwave Sterilizer',cat:'Menstrual Cups',rating:4.7,rv:680,col:'#c9772e',icon:'shield',
+    desc:'Ultra-soft hypoallergenic cup with a collapsible microwave sterilizing container for hygienic disinfection anywhere.',
+    features:['Microwave sterilizer container included','Biocompatible silicone','Smooth insertion rim'],
+    variants:[
+      {name:'Cup + Sterilizer Kit',p:260,mrp:360,label:'Complete Kit (260 TACO)'},
+      {name:'Sterilizing Container Only',p:110,mrp:150,label:'Sterilizer (110 TACO)'}
+    ],
+    reviews:[{n:'Ayesha',r:5,d:'5 days ago',t:'Sterilizing in the microwave container takes just 3 mins.'}]
+  },
+  {
+    id:'p7',brand:'Plush',name:'Pure Organic Cotton Tampons',cat:'Tampons',rating:4.6,rv:510,col:'#6b1f4f',icon:'droplet',
+    desc:'100% certified organic cotton tampons with expandable width technology for swimming, workouts, and confidence.',
+    features:['100% GOTS certified organic cotton','BPA-free smooth applicator','Chlorine & fragrance free'],
+    variants:[
+      {name:'Pack of 16 Tampons (Regular)',p:150,mrp:190,label:'16 Tampons (150 TACO)'},
+      {name:'Pack of 32 Tampons (Super Saver)',p:280,mrp:360,label:'32 Tampons (280 TACO)',badge:'Save 20 TACO'}
+    ],
+    reviews:[{n:'Tanya',r:5,d:'2 weeks ago',t:'Glides smoothly, no synthetic shedding.'}]
+  },
+  {
+    id:'p8',brand:'Pee Safe',name:'Herbal Neem & Aloe Vera Pads',cat:'Pads',rating:4.5,rv:430,col:'#c9772e',icon:'leaf',
+    desc:'Infused with natural neem and aloe vera extracts to soothe sensitive skin and neutralize odor naturally.',
+    features:['Natural neem antibacterial shield','Aloe vera soothing top layer','Breathable plant backing'],
+    variants:[
+      {name:'Pack of 10 Pads',p:95,mrp:120,label:'10 Pads (95 TACO)'},
+      {name:'Pack of 30 Pads (Saver)',p:270,mrp:350,label:'30 Pads (270 TACO)',badge:'Curator Special'}
+    ],
+    reviews:[{n:'Harini',r:4,d:'1 month ago',t:'Gentle and fresh herbal scent.'}]
+  },
+  {
+    id:'p9',brand:'Nua',name:'Cramp Comfort Self-Heating Patches',cat:'Cramp Care',rating:4.9,rv:780,col:'#b84460',icon:'shield',
+    desc:'Air-activated soothing heat patches that emit 40°C warmth for up to 8 hours. Sticks discreetly to inner clothing.',
+    features:['Up to 8 hours constant soothing heat','Ultra-thin & discreet under clothes','100% natural thermal reaction'],
+    variants:[
+      {name:'Pack of 3 Heat Patches',p:120,mrp:160,label:'3 Patches (120 TACO)'},
+      {name:'Pack of 6 Patches (Value Pack)',p:220,mrp:300,label:'6 Patches (220 TACO)',badge:'Save 20 TACO'}
+    ],
+    reviews:[{n:'Deepa',r:5,d:'3 days ago',t:'A lifesaver during office days. Eases cramps completely.'}]
+  }
+];
+
+const shade=(hex,pc)=>{const f=parseInt(hex.slice(1),16),t=pc<0?0:255,pp=Math.abs(pc)/100,R=f>>16,G=f>>8&255,B=f&255;return '#'+(0x1000000+(Math.round((t-R)*pp)+R)*0x10000+(Math.round((t-G)*pp)+G)*0x100+(Math.round((t-B)*pp)+B)).toString(16).slice(1)};
+const starStr=r=>{const f=Math.round(r);return '★'.repeat(f)+'☆'.repeat(5-f)};
+
+function pArt(p,h){
+  const g='g'+p.id;
+  return `<svg viewBox="0 0 160 100" width="100%" height="${h}" preserveAspectRatio="xMidYMid slice" style="display:block">
+    <defs><linearGradient id="${g}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${p.col}"/><stop offset="1" stop-color="${shade(p.col,-18)}"/></linearGradient></defs>
+    <rect width="160" height="100" fill="url(#${g})"/>
+    <rect width="160" height="36" fill="#ffffff22"/>
+    <circle cx="134" cy="80" r="32" fill="#ffffff14"/>
+    <circle cx="20" cy="86" r="18" fill="#ffffff10"/>
+    <g transform="translate(16,38) scale(2.6)" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity=".92">${P[p.icon]||P.droplet}</g>
+    <text x="14" y="23" font-family="Georgia,serif" font-size="13" font-weight="700" fill="#fff">${esc(p.brand)}</text>
+  </svg>`;
+}
+
+const OST=['Order placed','Shipped','Delivered'];
+const pSelectedVariant=(p)=>{const vIdx=store.varChoice?.[p.id]||0;return p.variants[vIdx]||p.variants[0]};
+const stItemKey=(pId,vIdx)=>pId+'__'+vIdx;
+const stQty=(pId,vIdx)=>store.cart[stItemKey(pId,vIdx)]||0;
+
+function stSelectVariant(pId,vIdx){
+  store.varChoice=store.varChoice||{};
+  store.varChoice[pId]=vIdx;
+  save();stRender();
+}
+
+function stAdd(pId,vIdx=0){
+  const k=stItemKey(pId,vIdx);
+  store.cart[k]=(store.cart[k]||0)+1;
+  save();stRender();toast('Added to Luna Cart ✨');
+}
+
+function stSub(pId,vIdx=0){
+  const k=stItemKey(pId,vIdx);
+  if(store.cart[k]){
+    store.cart[k]--;
+    if(store.cart[k]<=0)delete store.cart[k];
+  }
+  save();stRender();
+}
+
+function stFilter(c){stCat=c;stRender()}
+
+const stCartCount=()=>Object.values(store.cart).reduce((a,b)=>a+b,0);
+const stCartTotal=()=>Object.entries(store.cart).reduce((s,[k,q])=>{
+  const[pId,vIdxStr]=k.split('__');
+  const p=PRODUCTS.find(x=>x.id===pId);if(!p)return s;
+  const v=p.variants[+vIdxStr]||p.variants[0];
+  return s+v.p*q;
+},0);
+
+function stRender(){
+  if(!$('pg-store'))return;
+  $('stBal').textContent=tacoBadge(wal.bal);
+  const cats=['All','Pads','VWash & Intimate','Menstrual Cups','Tampons','Cramp Care'];
+  $('stCats').innerHTML=cats.map(c=>`<span class="chip${c===stCat?' on':''}" onclick="stFilter('${c}')">${c}</span>`).join('');
+  const list=PRODUCTS.filter(p=>stCat==='All'||p.cat===stCat);
+
+  $('stGrid').innerHTML=list.map(p=>{
+    const vIdx=store.varChoice?.[p.id]||0;
+    const v=p.variants[vIdx]||p.variants[0];
+    const q=stQty(p.id,vIdx);
+    return `
+      <div class="pcard">
+        <div>
+          <div class="pimg" onclick="openProduct('${p.id}')">${pArt(p,100)}</div>
+          <div style="font-size:11px;font-weight:700;color:var(--mut);text-transform:uppercase;margin-top:6px">${esc(p.brand)}</div>
+          <b style="display:block;margin-top:2px;cursor:pointer" onclick="openProduct('${p.id}')">${esc(p.name)}</b>
+          
+          ${p.variants.length>1?`
+          <select style="margin:6px 0;padding:6px 8px;font-size:11.5px;border-radius:9px" onchange="stSelectVariant('${p.id}',this.selectedIndex)">
+            ${p.variants.map((va,idx)=>`<option value="${idx}" ${idx===vIdx?'selected':''}>${va.label}</option>`).join('')}
+          </select>`:''}
+
+          <div class="pr" style="margin-top:4px">
+            <b>${tacoBadge(v.p)}</b>
+            <del>${v.mrp} TACO</del>
+            ${v.badge?`<span class="badge">${v.badge}</span>`:''}
+          </div>
+        </div>
+
+        <div style="margin-top:8px">
+          ${q?`
+          <div class="stepper" style="justify-content:space-between">
+            <button onclick="stSub('${p.id}',${vIdx})">−</button>
+            <span>${q}</span>
+            <button onclick="stAdd('${p.id}',${vIdx})">+</button>
+          </div>`:`
+          <button class="btn s" style="margin:0;padding:9px;font-size:12.5px" onclick="stAdd('${p.id}',${vIdx})">Add to cart</button>`}
+        </div>
+      </div>`;
+  }).join('');
+
+  const cnt=stCartCount();
+  $('stCartBar').style.display=cnt?'flex':'none';
+  const navCount=$('navCartCount');
+  if(navCount){
+    navCount.style.display=cnt?'flex':'none';
+    navCount.textContent=cnt;
+  }
+  if(cnt){
+    $('stCartCount').textContent=cnt+' item'+(cnt>1?'s':'')+' in cart';
+    $('stCartTot').textContent=tacoBadge(stCartTotal());
+  }
+
+  $('stOrders').innerHTML=store.orders.length?store.orders.slice().reverse().map(o=>`
+    <div class="rem">
+      <div class="dot" style="background:${o.s>1?'var(--ok)':'var(--rose)'}"></div>
+      <div style="flex:1">
+        <b>${esc(o.items.map(i=>i.n+' ×'+i.q).join(', '))}</b>
+        <small>${esc(o.d)} · <b>${taco(o.tot)}</b> · ${OST[o.s]}</small>
+        <div class="stp">${[0,1,2].map(i=>`<i class="${i<=o.s?(o.s>1?'ok':'on'):''}"></i>`).join('')}</div>
+        ${o.s<2?`<button class="btn s" style="width:auto;margin:8px 0 0;padding:8px 12px;font-size:11.5px" onclick="stAdv(${o.id})">Demo: simulate ${o.s===0?'shipping':'delivery'}</button>`:''}
+      </div>
+    </div>`).join(''):'<div class="empty">No orders yet.<br>Redeem your TACO points above!</div>';
+  renderCart();
+}
+
+function stAdv(id){const o=store.orders.find(x=>x.id===id);if(!o||o.s>1)return;o.s++;save();stRender()}
+function openCart(){renderCart();$('ov2').classList.add('on');$('sheet2').classList.add('on')}
+function closeCart(){$('ov2').classList.remove('on');$('sheet2').classList.remove('on')}
+
+function renderCart(){
+  if(!$('cartList'))return;
+  const items=Object.entries(store.cart).map(([k,q])=>{
+    const[pId,vIdxStr]=k.split('__');
+    const p=PRODUCTS.find(x=>x.id===pId);
+    const v=p?.variants[+vIdxStr]||p?.variants[0];
+    return {p,v,vIdx:+vIdxStr,q};
+  }).filter(i=>i.p&&i.v);
+
+  $('cartList').innerHTML=items.length?items.map(({p,v,vIdx,q})=>`
+    <div class="row">
+      <div class="ic" style="padding:0;overflow:hidden">${pArt(p,36)}</div>
+      <div style="flex:1">
+        <b>${esc(p.name)}</b>
+        <small>${esc(v.name)} · ${taco(v.p)} × ${q}</small>
+      </div>
+      <div class="stepper">
+        <button onclick="stSub('${p.id}',${vIdx})">−</button>
+        <span>${q}</span>
+        <button onclick="stAdd('${p.id}',${vIdx})">+</button>
+      </div>
+    </div>`).join(''):'<div class="empty">Your cart is empty</div>';
+
+  const tot=stCartTotal();
+  $('cartTot').textContent=taco(tot);
+  $('cartBalNote').textContent='Wallet balance: '+taco(wal.bal);
+}
+
+function stCheckout(){
+  const tot=stCartTotal();
+  if(!tot)return toast('Your cart is empty');
+  if(!user)return toast('Please create your profile first');
+  if(tot>wal.bal)return toast(`Need ${tot - wal.bal} more TACO! Donate vials to earn more.`);
+  
+  const items=Object.entries(store.cart).map(([k,q])=>{
+    const[pId,vIdxStr]=k.split('__');
+    const p=PRODUCTS.find(x=>x.id===pId);
+    const v=p?.variants[+vIdxStr]||p?.variants[0];
+    return {n:`${p.name} (${v.name})`,q,p:v.p};
+  });
+
+  wal.bal-=tot;
+  wal.tx.push({id:Date.now(),k:'d',a:tot,t:'Luna Shop: Order #'+String(Date.now()).slice(-4),d:todayL()});
+  store.orders.push({id:Date.now(),items,tot,d:todayL(),s:0});
+  store.cart={};
+  save();render();closeCart();
+  toast(`Order placed! ${taco(tot)} redeemed 🎉`);
+}
+
+let pdCur=null;
+function openProduct(id){pdCur=id;$('ov3').classList.add('on');$('sheet3').classList.add('on');renderProductDetail()}
+function closeProduct(){$('ov3').classList.remove('on');$('sheet3').classList.remove('on')}
+
+function renderProductDetail(){
+  if(!pdCur)return;
+  const p=PRODUCTS.find(x=>x.id===pdCur);if(!p)return;
+  const vIdx=store.varChoice?.[p.id]||0;
+  const v=p.variants[vIdx]||p.variants[0];
+  const q=stQty(p.id,vIdx);
+
+  $('pd3Art').innerHTML=pArt(p,160);
+  $('pd3Brand').textContent=p.brand+' · '+p.cat;
+  $('pd3Name').textContent=p.name;
+  $('pd3Rating').innerHTML=`<span class="stars">${starStr(p.rating)}</span> ${p.rating} · ${p.rv} ratings`;
+  
+  $('pd3Variants').innerHTML=p.variants.length>1?`
+    <label style="font-size:12px;margin-bottom:4px">Select Size / Pack</label>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      ${p.variants.map((va,idx)=>`
+        <div class="vial-btn ${idx===vIdx?'sel':''}" onclick="stSelectVariant('${p.id}',${idx});renderProductDetail()">
+          <b>${va.name}</b>
+          <small>${taco(va.p)}</small>
+        </div>`).join('')}
+    </div>`:'' ;
+
+  $('pd3Price').innerHTML=`<b>${tacoBadge(v.p)}</b><del>${v.mrp} TACO</del>${v.badge?`<span class="badge">${v.badge}</span>`:''}`;
+  $('pd3Desc').textContent=p.desc;
+  $('pd3Features').innerHTML=p.features.map(f=>`<div class="chk"><i data-i="check" data-s="16"></i>${esc(f)}</div>`).join('');
+  document.querySelectorAll('#pd3Features [data-i]').forEach(e=>e.innerHTML=ico(e.dataset.i,+e.dataset.s||16));
+  
+  $('pd3Add').innerHTML=q?`
+    <div class="stepper" style="justify-content:center">
+      <button onclick="stSub('${p.id}',${vIdx});renderProductDetail()">−</button>
+      <span style="font-size:15px;min-width:30px">${q} in cart</span>
+      <button onclick="stAdd('${p.id}',${vIdx});renderProductDetail()">+</button>
+    </div>`:`
+    <button class="btn p" onclick="stAdd('${p.id}',${vIdx});renderProductDetail()">Add to cart (${taco(v.p)})</button>`;
+
+  $('pd3Reviews').innerHTML=p.reviews.map(r=>`
+    <div class="rvw">
+      <div class="rv-h">
+        <div class="rv-av" style="background:${p.col}">${esc(r.n[0])}</div>
+        <div><b>${esc(r.n)}</b><small>${esc(r.d)}</small></div>
+        <span class="stars" style="margin-left:auto">${starStr(r.r)}</span>
+      </div>
+      <p>${esc(r.t)}</p>
+    </div>`).join('');
+}
+
+/* ===== CYCLE TRACKER ===== */
+const newCyc=()=>({len:28,plen:5,starts:[],logs:{}});
+let cyc=newCyc(),cmo=new Date(),csel=null;
+const ds=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const pd=s=>{const[a,b,c]=s.split('-').map(Number);return new Date(a,b-1,c)};
+const addD=(s,n)=>{const d=pd(s);d.setDate(d.getDate()+n);return ds(d)};
+const dif=(a,b)=>Math.round((pd(a)-pd(b))/864e5);
+const fd=(s,o)=>pd(s).toLocaleDateString('en-IN',o||{weekday:'short',day:'numeric',month:'short'});
+const DM={day:'numeric',month:'short'};
+const gaps=()=>{const s=cyc.starts,g=[];for(let i=1;i<s.length;i++)g.push(dif(s[i],s[i-1]));return g};
+const cL=()=>{const g=gaps().slice(-3).filter(x=>x>=15&&x<=60);return g.length>=2?Math.round(g.reduce((a,b)=>a+b)/g.length):cyc.len};
+const MOODS=['Happy 🌸','Calm 🌿','Tender 🕊️','Irritable ⚡','Low Energy ☕'],SYM=['Cramps','Headache','Bloating','Fatigue','Cravings','Back pain','Clear skin'],FLOW=['Light','Medium','Heavy'];
+const DESC={'Menstrual':'Your body is shedding the uterine lining. Rest and gentle replenishment help energy recovery.','Follicular':'Estrogen is rising, lifting mental clarity and stamina. Great phase for fresh tasks.','Fertile window':'Conception window open. Energy and sociability peak around this period.','Ovulation':'Egg release typically occurs today. Peak vitality and metabolic readiness.','Luteal':'Progesterone rises. Mild cravings or pre-menstrual sensitivity are standard.','Period due':'Your period is expected or slightly delayed. Stay warm and hydrated.'};
+const CARE={'Menstrual':['Eat iron-rich lentils, spinach, dates, and drink warm ginger tea.','Gentle pelvic yoga stretches ease uterine muscle contraction.','Prioritize early restorative sleep.'],'Follicular':['High energy window: ideal for new fitness routines.','Add vibrant antioxidant salads and clean proteins to meals.','Mental acuity is at its monthly peak.'],'Fertile window':['Hydrate with electrolytes and high-fiber wholesome grains.','Energy levels easily sustain vigorous activity.','Mild one-sided pelvic twinge around ovulation is normal.'],'Luteal':['Magnesium-rich dark chocolate and pumpkin seeds help soothe PMS.','Opt for steady restorative walking, swimming, or Pilates.','Moderate caffeine and sodium to combat fluid retention.'],'Period due':['Stress, travel, and sleep changes can fluctuate period timing.','If delayed over a week and pregnancy is possible, take a test.','Contact your physician if cycles consistently exceed 38 days.']};
+
+function cyInfo(x){
+  const s=cyc.starts;if(!s.length)return{};
+  const L=cL(),all=s.slice();for(let k=1;k<=8;k++)all.push(addD(s[s.length-1],L*k));
+  let i=-1;for(let j=0;j<all.length;j++)if(all[j]<=x)i=j;
+  if(i<0)return{};
+  const st=all[i],logged=i<s.length,len=i<s.length-1?dif(all[i+1],st):L,n=dif(x,st)+1,ov=len-14;
+  let k='';if(n<=cyc.plen)k=logged?'pd':'pp';else if(n===ov)k='ovu';else if(n>=ov-5&&n<=ov+1)k='fw';
+  return{k}
+}
+
+function cyPhase(day,L){const ov=L-14;if(day>L)return['Period due','#f4b183'];if(day<=cyc.plen)return['Menstrual','#ff8da6'];if(day<ov-5)return['Follicular','#e6a6d0'];if(day<=ov+1)return[day===ov?'Ovulation':'Fertile window','#5fd0c4'];return['Luteal','#f4b183']}
+
+function cyHero(){
+  const s=cyc.starts,t=ds(new Date()),L=cL(),last=s[s.length-1],day=dif(t,last)+1,ov=L-14,[ph,col]=cyPhase(day,L);
+  const nx=addD(last,L),dn=dif(nx,t),sh=day>ov+1?L:0,C=301.6,off=C*(1-Math.min(day/L,1));
+  $('cycTile').textContent='Day '+day+' · '+ph;
+  $('cyHero').innerHTML=`<div class="ring"><svg width="112" height="112" viewBox="0 0 112 112" style="transform:rotate(-90deg)"><circle cx="56" cy="56" r="48" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="9"/><circle cx="56" cy="56" r="48" fill="none" stroke="${col}" stroke-width="9" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${off}"/></svg><div><b>Day ${day}</b><small>of ${L}</small></div></div><div class="cy-info"><span class="ph" style="background:${col}">${ph}</span><small>Next period · ${fd(nx,DM)}</small><b>${dn>0?'in '+dn+' day'+(dn>1?'s':''):dn===0?'Today':(-dn)+' day'+(dn<-1?'s':'')+' late'}</b><small>Fertile window</small><b>${fd(addD(last,ov-6+sh),DM)} – ${fd(addD(last,ov+sh),DM)}</b></div>`;
+}
+
+function cyCal(){
+  const m=new Date(cmo.getFullYear(),cmo.getMonth(),1),t=ds(new Date());
+  let h=`<div class="cal-h"><button onclick="cMo(-1)" aria-label="Previous month">${ico('chl',18)}</button><b>${m.toLocaleDateString('en-IN',{month:'long',year:'numeric'})}</b><button onclick="cMo(1)" aria-label="Next month">${ico('chr',18)}</button></div><div class="cal">`;
+  'SMTWTFS'.split('').forEach(w=>h+=`<div class="w">${w}</div>`);
+  for(let i=0;i<m.getDay();i++)h+='<span></span>';
+  const nd=new Date(m.getFullYear(),m.getMonth()+1,0).getDate();
+  for(let d=1;d<=nd;d++){const x=ds(new Date(m.getFullYear(),m.getMonth(),d));h+=`<button class="${cyInfo(x).k||''}${x===t?' td':''}${x===csel?' sl':''}${cyc.logs[x]?' lg':''}" onclick="cSel('${x}')">${d}</button>`}
+  $('cyCal').innerHTML=h+`</div><div class="leg"><span><i style="background:var(--rose)"></i>Period</span><span><i style="border:1.5px dashed var(--rose)"></i>Predicted</span><span><i style="background:#dcefec"></i>Fertile</span><span><i style="background:var(--ok)"></i>Ovulation</span></div>`;
+}
+
+function cyDay(){
+  const t=ds(new Date()),x=csel||t,lg=cyc.logs[x]||{},isS=cyc.starts.includes(x);
+  const ch=(a,cur,k)=>a.map(v=>`<span class="chip${(Array.isArray(cur)?cur.includes(v):cur===v)?' on':''}" onclick="cSet('${k}','${v}')">${v}</span>`).join('');
+  $('cyDay').innerHTML=`<h2 style="margin-top:0">${fd(x,{weekday:'long',day:'numeric',month:'long'})}</h2>`+(x>t?'<p class="note" style="margin:0">This day is a prediction. You can log feelings once this day arrives.</p>':`<button class="btn ${isS?'s':'p'}" style="margin-bottom:14px" onclick="cTog('${x}')">${isS?'Remove period start':'Period started this day'}</button><label>Mood</label><div class="chips">${ch(MOODS,lg.mood,'mood')}</div><label>Symptoms</label><div class="chips">${ch(SYM,lg.sym||[],'sym')}</div><label>Flow</label><div class="chips">${ch(FLOW,lg.flow,'flow')}</div>`);
+}
+
+function cyCare(){
+  const t=ds(new Date()),last=cyc.starts[cyc.starts.length-1],L=cL(),day=dif(t,last)+1,[ph]=cyPhase(day,L);
+  const tips=(CARE[ph]||CARE['Fertile window']);
+  $('cyCare').innerHTML=`<div class="row"><div class="ic">${ico('moon',18)}</div><div><small>${ph} · Day ${day}</small><b style="font-weight:500;line-height:1.5">${DESC[ph]}</b></div></div>`+tips.map(x=>`<div class="row"><div class="ic">${ico('leaf',18)}</div><b style="font-weight:500;line-height:1.5">${x}</b></div>`).join('');
+}
+
+function cyIns(){
+  const s=cyc.starts,g=gaps(),L=cL(),last=s[s.length-1],t=ds(new Date()),ov=L-14,day=dif(t,last)+1,late=day-L,a=[];
+  if(late>7)a.push(`Your period is ${late} days late. Stress or illness can shift cycle timing.`);
+  $('cyAlert').innerHTML=a.map(x=>`<div class="alert">${x}</div>`).join('');
+  const kv=(k,v)=>`<div class="kv"><span>${k}</span><span>${v}</span></div>`;
+  $('cyIns').innerHTML=kv('Average cycle',L+' days')+kv('Period length',cyc.plen+' days')+kv('Regularity','Regular')+kv('Next period',fd(addD(last,L),DM))+kv('Next ovulation',fd(addD(last,ov-1+(day>ov?L:0)),DM));
+}
+
+function cyAll(){
+  const has=cyc.starts.length>0;
+  $('cycSetup').style.display=has?'none':'block';$('cycMain').style.display=has?'block':'none';
+  $('cStart').max=ds(new Date());
+  if(!has){$('cycTile').textContent='Track your period & health';return}
+  csel=csel||ds(new Date());cyHero();cyCal();cyDay();cyCare();cyIns();
+  if(document.activeElement!==$('cLen2'))$('cLen2').value=cyc.len;
+  if(document.activeElement!==$('cPl2'))$('cPl2').value=cyc.plen;
+}
+
+function startCycle(){
+  const d=$('cStart').value,L=+$('cLen').value,p=+$('cPl').value;
+  if(!d)return toast('Pick the first day of your last period');
+  if(d>ds(new Date()))return toast('That date is in the future');
+  cyc.len=L;cyc.plen=p;cyc.starts=[d];csel=ds(new Date());cmo=new Date();
+  save();cyAll();toast('Cycle tracking initiated');
+}
+
+function setCyc(){const L=+$('cLen2').value,p=+$('cPl2').value;if(L>=21&&L<=45)cyc.len=L;if(p>=2&&p<=10)cyc.plen=p;save();cyAll()}
+function cMo(n){cmo=new Date(cmo.getFullYear(),cmo.getMonth()+n,1);cyCal()}
+function cSel(x){csel=x;cyCal();cyDay()}
+function cTog(x){const i=cyc.starts.indexOf(x);i<0?cyc.starts.push(x):cyc.starts.splice(i,1);cyc.starts.sort();save();cyAll()}
+function cSet(k,v){const x=csel||ds(new Date()),l=cyc.logs[x]=cyc.logs[x]||{};if(k==='sym'){l.sym=l.sym||[];const i=l.sym.indexOf(v);i<0?l.sym.push(v):l.sym.splice(i,1)}else l[k]=l[k]===v?'':v;if(!l.mood&&!l.flow&&!(l.sym&&l.sym.length))delete cyc.logs[x];save();cyAll()}
+function cReset(){if(confirm('Delete cycle history?')){cyc=newCyc();csel=null;save();cyAll();toast('Cycle data reset')}}
+
+// Init
+load();authInit();render();authRender();
+$('bookDate').min=new Date().toISOString().slice(0,10);
+if(!$('bookDate').value)$('bookDate').value=new Date().toISOString().slice(0,10);
+
+
+if(window.Capacitor&&Capacitor.Plugins&&Capacitor.Plugins.App){
+  Capacitor.Plugins.App.addListener('backButton',()=>{
+    if(payOpen)closePay();
+    else if(hist.length)goBack();
+    else if(!$('pg-home').classList.contains('active'))showNav('home');
+    else Capacitor.Plugins.App.exitApp();
+  });
+}
+</script>
+
+</body></html>
