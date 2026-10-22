@@ -1,0 +1,38 @@
+{
+  "id": "./",
+  "name": "Luna App Pro · TACO Curator",
+  "short_name": "Luna",
+  "description": "A monthly care companion for cycle tracking, collection bookings, wellness reminders, and TACO rewards.",
+  "lang": "en",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fbf4f6",
+  "theme_color": "#6b1f4f",
+  "categories": [
+    "health",
+    "lifestyle",
+    "shopping"
+  ],
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
